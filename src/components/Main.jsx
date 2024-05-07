@@ -1,8 +1,14 @@
 import Navbar from "./Navbar";
 
+/**
+ * input todo: fix text overflowing its component
+ * main todo: main and sidebar components not occupying the whole page
+ */
 function Main() {
   return (
+    // main
     <div className="flex flex-col box-border bg-[rgba(29,31,34,255)] w-full">
+      {/* navbar comonent */}
       <Navbar />
       <div className="text-white pl-3 h-[100%]">
         <div className="pl-[10px] flex items-center border-b border-b-[#25282d] h-[40px] py-[27px]">
@@ -54,6 +60,7 @@ function Main() {
               exercitationem! Aliquam, corrupti.
             </div>
           </div>
+          {/* input */}
           <div className="absolute bottom-[30px] self-center bg-[#23262b] w-[70.5%] rounded-3xl p-2">
             <input
               className="break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"
@@ -79,9 +86,6 @@ function Main() {
           </div>
         </div>
       </div>
-
-      {/* input */}
-      <div className="hidden rounded bg-red-700"></div>
     </div>
   );
 }

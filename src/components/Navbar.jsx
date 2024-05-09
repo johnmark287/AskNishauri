@@ -1,8 +1,17 @@
-function Navbar() {
+import PropTypes from 'prop-types'
+
+function Navbar({ logout, setLogout }) {
   return (
     <div className="relative flex justify-between bg-[hsl(216,8%,12%)] border-b border-gray-700 p-3 te">
-      <div className="bg-[rgba(35,38,43,255)] rounded-2xl flex justify-between">
-        <div className="my-1 mx-4 text-[#87929a]">Johnmark Muhando</div> {/* Add log out functionality if clicked*/}
+      <div className="relative hover:cursor-pointer active:bg-[#4b535c] bg-[rgba(35,38,43,255)] rounded-2xl flex justify-between">
+        <button type='button' onClick={() => {setLogout()}} className="my-1 mx-4 text-[#87929a]">Johnmark Muhando</button>
+        <div className={`${logout ? "block" : "hidden"} absolute right-0 top-8 text-white bg-[#87929a] rounded-md p-1`}>
+          <ul className="">
+            <li className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3">
+              <a href="">Log Out</a>
+            </li>
+          </ul>
+        </div>
         <button className="hidden my-1 ml-3">
           <svg
             className="text-[#87929a] fill-current"
@@ -51,5 +60,11 @@ function Navbar() {
     </div>
   );
 }
+
+// Define propTypes for the Navbar component
+Navbar.propTypes = {
+  logout: PropTypes.bool.isRequired,
+  setLogout: PropTypes.func.isRequired,
+};
 
 export default Navbar;

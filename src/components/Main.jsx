@@ -7,10 +7,10 @@ import Navbar from "./Navbar";
 function Main() {
   return (
     // main
-    <div className="flex flex-col box-border bg-[rgba(29,31,34,255)] w-full">
+    <div className="relative flex flex-col box-border bg-[rgba(29,31,34,255)] h-screen w-full">
       {/* navbar comonent */}
       <Navbar />
-      <div className="text-white pl-3 h-[100%]">
+      <div className="relative text-white pl-3 h-[100%] overflow-y-scroll">
         <div className="pl-[10px] flex items-center border-b border-b-[#25282d] h-[40px] py-[27px]">
           <div className="">
             <div className="min-w-[160px] font-bold text-[#5aa2e0]">User</div>
@@ -60,30 +60,32 @@ function Main() {
               exercitationem! Aliquam, corrupti.
             </div>
           </div>
-          {/* input */}
-          <div className="absolute bottom-[30px] self-center bg-[#23262b] w-[70.5%] rounded-3xl p-2">
-            <input
-              className="break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"
-              type="textarea"
-              name="input"
-              id="input"
-            />
-            <button
-              type="submit"
-              className="rounded-xl absolute bottom-2 right-2 bg-[#244b42]"
+        </div>
+      </div>
+      {/* input */}
+      <div className="flex justify-center items-center absolute bottom-0 right-0 left-0  h-20 bg-[rgba(29,31,34,255)] ">
+        <div className="absolute bg-[#23262b] w-[69%] rounded-3xl p-2">
+          <input
+            className="break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"
+            type="textarea"
+            name="input"
+            id="input"
+          />
+          <button
+            type="submit"
+            className="rounded-xl absolute bottom-2 right-2 bg-[#244b42]"
+          >
+            <svg
+              className="fill-current text-[#27c08a] p-[2px]"
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#e8eaed"
             >
-              <svg
-                className="fill-current text-[#27c08a] p-[2px]"
-                xmlns="http://www.w3.org/2000/svg"
-                height="24px"
-                viewBox="0 -960 960 960"
-                width="24px"
-                fill="#e8eaed"
-              >
-                <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
-              </svg>
-            </button>
-          </div>
+              <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

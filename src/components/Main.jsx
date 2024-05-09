@@ -90,10 +90,10 @@ function Main() {
           </button>
           <button
             type="submit"
-            className="rounded-2xl absolute bottom-[5px] right-2 p-[3px] bg-[#244b42]"
+            className="rounded-2xl absolute bottom-[5px] active:bg-[rgb(19,94,67)] right-2 p-[3px] bg-[rgba(30,48,44,255)] hover:bg-[rgb(118,194,166)]"
           >
             <svg
-              className="fill-current text-[#27c08a]"
+              className="fill-current  text-[rgba(37,188,134,255)] hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"

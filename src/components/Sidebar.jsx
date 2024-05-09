@@ -12,7 +12,8 @@ function Sidebar({ open, setOpen }) {
         <button
           type="button"
           onClick={() => setOpen()}
-          className=" pr-[1px] mr-[2px]"
+          className=" pr-[1px] mr-[2px] tootip"
+          title="Sidebar"
         >
           <svg
             className="active:fill-current"
@@ -28,7 +29,8 @@ function Sidebar({ open, setOpen }) {
       </div>
       <button
         type="button"
-        className={`flex hover:bg-[rgba(131,142,152,255)] active:bg-[rgba(29,31,34,255)] my-2 py-[7px] bg-[rgba(72,81,89,255)] rounded-3xl w-[90%] self-center text-white`}
+        className={`flex tooltip hover:bg-[rgba(131,142,152,255)] active:bg-[rgba(29,31,34,255)] my-2 py-[7px] bg-[rgba(72,81,89,255)] rounded-3xl w-[90%] self-center text-white`}
+        title="Create chat"
       >
         <svg
           className="mx-2  px-[2px] fill-current text-white"

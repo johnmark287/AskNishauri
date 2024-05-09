@@ -63,10 +63,10 @@ function Main() {
         </div>
       </div>
       {/* input */}
-      <div className="flex justify-center items-center absolute bottom-0 right-0 left-0  h-20 bg-[rgba(29,31,34,255)] ">
+      <div className="text-white flex justify-center items-center absolute bottom-0 right-0 left-0  h-20 bg-[rgba(29,31,34,255)] ">
         <div className="absolute bg-[#23262b] w-[69%] rounded-3xl p-2">
           <input
-            className="break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"
+            className="ml-3 break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"
             type="textarea"
             name="input"
             id="input"

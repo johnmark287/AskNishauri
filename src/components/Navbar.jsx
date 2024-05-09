@@ -100,8 +100,9 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
           {/* hidden on large screen size and visible on small screen size */}
           <svg
             className={`${
-              open ? "hidden md:block" : "hidden"
-            } fill-current text-[rgba(82,91,100,255)]`}
+              open ? "hidden" : "hidden md:block"
+            } fill-current text-[rgba(82,91,100,255)] tooltip`}
+            title="Create chat"
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
             viewBox="0 -960 960 960"

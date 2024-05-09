@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="flex">
         <Sidebar />
-        <Main />
+        <Main open={open} />
     </div>
   )
 }

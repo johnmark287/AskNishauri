@@ -4,11 +4,11 @@ function Sidebar({ open, setOpen }) {
   return (
     <aside
       className={`${
-        open ? "w-[260px]" : "w-[-260px]"
+        open ? "md:w-[260px]" : "w-[-260px]"
       } duration-300 bg-[rgba(35,38,43,255)] h-screen flex flex-col text-[rgba(131,142,152,255)]`}
     >
       <div className="flex justify-between text-left m-1 p-[6px] relative border-b border-b-gray-500">
-        <div className={`${open ? "" : "hidden"} py-[2.23px]`}>AskNishauri</div>
+        <div className={`${open ? "hidden md:block" : "hidden"} py-[2.23px]`}>AskNishauri</div>
         <button
           type="button"
           onClick={() => setOpen()}
@@ -40,9 +40,9 @@ function Sidebar({ open, setOpen }) {
         >
           <path d="M80 0v-160h800V0H80Zm160-320h56l312-311-29-29-28-28-311 312v56Zm-80 80v-170l448-447q11-11 25.5-17t30.5-6q16 0 31 6t27 18l55 56q12 11 17.5 26t5.5 31q0 15-5.5 29.5T777-687L330-240H160Zm560-504-56-56 56 56ZM608-631l-29-29-28-28 57 57Z" />
         </svg>
-        <span className={`${open ? "" : "hidden"}`}>Create chat</span>
+        <span className={`${open ? "hidden md:block" : "hidden"} hover: `}>Create chat</span>
       </button>
-      <div className={`${open ? "" : "hidden"} m-2`}>History</div>
+      <div className={`${open ? "hidden md:block" : "hidden"} m-2`}>History</div>
     </aside>
   );
 }

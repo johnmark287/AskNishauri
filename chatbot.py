@@ -4,16 +4,19 @@ Chatbot logic and functionality
 
 import argparse
 import os
-
+import json
+from flask import Flask, request, jsonify
+from flask_cors import CORS
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
-
-
-# from langchain_community.chat_models import ChatGooglePalm
-# from langchain_community.embeddings import GooglePalmEmbeddings
 from langchain_community.vectorstores.chroma import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
+
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+load_dotenv()
+api_key = os.getenv("GOOGLE_API_KEY")
 
 CHROMA_DB_PATH = "database/chroma"
 PROMPT_TEMPLATE = """
@@ -30,27 +33,17 @@ When answering, always use a formal doctor's tone.
 Avoid using the phrase "according to the document" instead use "from your records"
 If the DOCUMENT doesn't contain the facts to answer the QUESTION return NONE
 """
-load_dotenv()
-api_key = os.getenv("GOOGLE_API_KEY")
-api_key_anthropic = os.getenv("ANTHROPIC_API_KEY")
 
+@app.route("/chatbot", methods=["POST"])
+def chatbot():
+    print("Chatbot invoked")
+    data = request.get_json()
+    print(f"Data: {data}")
+    query_text = data["message"]
 
-def main():
-    """
-    Main function for the chatbot
-    """
-    parser = argparse.ArgumentParser()
-    parser.add_argument("query_text", type=str, help="Query text")
-    args = parser.parse_args()
-    query_text = args.query_text
-
-    # print(f"Query text: {query_text}")
-
-    # load the database created earlier
     embedding_function = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001", google_api_key=api_key
     )
-    # embedding_function = GoogleGenerativeAIEmbeddings(google_api_key=api_key)
     db = Chroma(persist_directory=CHROMA_DB_PATH, embedding_function=embedding_function)
 
     results = db.similarity_search_with_relevance_scores(query_text, k=1)
@@ -63,13 +56,18 @@ def main():
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format(context=context_text, question=query_text)
-    # print(f"Prompt: {prompt}")
-    # print(f"Context text: {context_text}")
+
 
     model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
-    # model_two = ChatGooglePalm()
 
-    response_one = dict(model_one.invoke(prompt))
+    try:
+        response_one = dict(model_one.invoke(prompt))
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"message": "Error"})
+
+    print("\n")
+    print(f"Question: {query_text}" )
     print("\n")
     print(
         response_one["content"]
@@ -79,8 +77,19 @@ def main():
         # .strip()
     )
 
+    return jsonify({"response": response_one["content"]})
 
-    # sources = [doc.metadata.get("source", None) for doc, _score in results]
+def main():
+    """
+    Main function for the chatbot
+    """
+    # parser = argparse.ArgumentParser()
+    # parser.add_argument("query_text", type=str, help="Query text")
+    # args = parser.parse_args()
+    # query_text = args.query_text
+
+    # load the database created earlier
+    app.run(port=5000, debug=True)
 
 
 if __name__ == "__main__":

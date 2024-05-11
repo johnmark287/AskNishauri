@@ -6,6 +6,26 @@ function Main({ open }) {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
 
+  function handleInput() {
+    const userInput = document.getElementById("input").value;
+    document.getElementById("input").value = "";
+    fetch("http://127.0.0.1:5000/chatbot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message: userInput }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          console.log(data);
+        } else {
+          console.log(data);
+        }
+      });
+  }
+
   function handleLogout() {
     setLogout(!logout);
   }
@@ -17,7 +37,13 @@ function Main({ open }) {
     // main
     <div className="relative flex flex-col box-border bg-[rgba(29,31,34,255)] h-screen w-full">
       {/* navbar component */}
-      <Navbar logout={logout} setLogout={handleLogout} settings={settings} setSettings={handleSettings} open={open} />
+      <Navbar
+        logout={logout}
+        setLogout={handleLogout}
+        settings={settings}
+        setSettings={handleSettings}
+        open={open}
+      />
 
       {/* Main Component */}
       <div className="relative text-white pl-3 h-[100%] overflow-y-scroll">
@@ -81,7 +107,7 @@ function Main({ open }) {
             name="input"
             id="input"
           />
-          <button
+          {/* <button
             type="button"
             className="absolute right-[43px] active:bg-[rgba(29,31,34,255)] bg-[rgba(131,142,152,255)] bottom-[5px] rounded-2xl p-[3px]"
           >
@@ -95,9 +121,10 @@ function Main({ open }) {
             >
               <path d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm0-240Zm-40 520v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Zm40-360q17 0 28.5-11.5T520-520v-240q0-17-11.5-28.5T480-800q-17 0-28.5 11.5T440-760v240q0 17 11.5 28.5T480-480Z" />
             </svg>
-          </button>
+          </button> */}
           <button
             type="submit"
+            onClick={handleInput}
             className="rounded-2xl absolute bottom-[5px] active:bg-[rgb(19,94,67)] right-2 p-[3px] bg-[rgba(30,48,44,255)] hover:bg-[rgb(118,194,166)]"
           >
             <svg

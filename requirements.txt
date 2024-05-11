@@ -1,4 +1,5 @@
 langchain
+langchain-google-genai
 # dotenv
 chromadb # Vector storage
 tiktoken  # For embeddings

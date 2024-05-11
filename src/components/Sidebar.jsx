@@ -7,12 +7,12 @@ function Sidebar({ open, setOpen }) {
         open ? "md:w-[260px]" : "w-[-260px]"
       } duration-300 bg-[rgba(35,38,43,255)] h-screen flex flex-col text-[rgba(131,142,152,255)]`}
     >
-      <div className="flex justify-between text-left m-1 p-[6px] relative border-b border-b-gray-500">
+      <div className="flex justify-between border-b border-b-gray-500 text-left m-1 p-[6px] relative my-[18px]">
         <div className={`${open ? "hidden md:block" : "hidden"} py-[2.23px]`}>AskNishauri</div>
         <button
           type="button"
           onClick={() => setOpen()}
-          className=" pr-[1px] mr-[2px] tootip"
+          className={`mb-1 pr-[1px] mr-[2px] tootip`}
           title="Sidebar"
         >
           <svg

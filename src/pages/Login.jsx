@@ -17,24 +17,24 @@ function Login() {
         <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>Login</CardTitle>
-            <CardDescription>Basic Login Page</CardDescription>
+            <CardDescription>Welcome to AskNishauri</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid gap-2">
-              <div className="flex flex-col items-start space-y-2">
+              <div className="flex flex-col items-start space-y-2 my-[10px]">
                 <Label htmlFor="email">Email</Label>
                 <Input id="email" type="email" placeholder="m@example.com" />
               </div>
             </div>
             <div className="grid gap-2">
-              <div className="flex flex-col items-start space-y-2">
+              <div className="flex flex-col items-start space-y-2 my-[10px]">
                 <Label htmlFor="password">Password</Label>
                 <Input id="password" type="password" />
               </div>
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full">Create account</Button>
+            <Button className="w-full" type="submit">Login</Button>
           </CardFooter>
         </Card>
       </div>

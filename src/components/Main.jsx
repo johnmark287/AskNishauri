@@ -23,18 +23,18 @@ function Main({ open }) {
       <div className="relative text-white pl-3 h-[100%] overflow-y-scroll">
         <div className="pl-[10px] flex items-center border-b border-b-[#25282d] h-[40px] py-[27px]">
           <div className="">
-            <div className="min-w-[160px] font-bold text-[#5aa2e0]">User</div>
-            <div className="text-[#808993]">at Tue, 28 Feb</div>
+            <div className="min-w-[100px] font-bold text-[#5aa2e0]">User</div>
+            <div className="text-[#808993]">at 4:19a.m.</div>
           </div>
           <div className="">How does AskNishauri work?</div>
         </div>
         <div className="relative pl-[10px] h-[100%] py-[20px] flex flex-col">
           <div className="flex flex-row">
             <div className="self-start">
-              <div className="text-[#29f6ac] min-w-[160px] h-[100%]">
+              <div className="text-[#29f6ac] min-w-[100px] h-[100%]">
                 AskNishauri
               </div>
-              <div className="text-[#808993]">Response 04:21 a.m</div>
+              <div className="text-[#808993]">04:21 a.m</div>
             </div>
             <div className="">
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti

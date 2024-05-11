@@ -11,7 +11,7 @@ function App() {
   return (
     <div className="flex">
         <Sidebar open={open} setOpen={handleOpen} />
-        <Main />
+        <Main open={open} />
     </div>
   )
 }

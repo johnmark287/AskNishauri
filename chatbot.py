@@ -62,22 +62,24 @@ def chatbot():
 
     try:
         response_one = dict(model_one.invoke(prompt))
+        return jsonify({"message": response_one["content"], "status": "success"})
     except Exception as e:
         print(f"Error: {e}")
-        return jsonify({"message": "Error"})
+        return jsonify({"message": e, "status": "error"})
+    finally:
+        print("\n")
+        print(f"Question: {query_text}" )
+        print("\n")
+        print(
+            response_one["content"]
+            # .replace("(", " ")
+            # .replace(")", " ")
+            # .replace("'", " ")
+            # .strip()
+        )
 
-    print("\n")
-    print(f"Question: {query_text}" )
-    print("\n")
-    print(
-        response_one["content"]
-        # .replace("(", " ")
-        # .replace(")", " ")
-        # .replace("'", " ")
-        # .strip()
-    )
 
-    return jsonify({"response": response_one["content"]})
+
 
 def main():
     """

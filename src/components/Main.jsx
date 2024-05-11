@@ -7,10 +7,26 @@ import Inputbar from "./Inputbar";
 function Main({ open }) {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
+  const [messages, setMessages] = useState([]);
+
+  function getCurrentTimestamp() {
+    const date = new Date();
+    return `${date.getHours()}:${date.getMinutes()}`;
+  }
 
   function handleInput() {
     const userInput = document.getElementById("input").value;
     document.getElementById("input").value = "";
+
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      {
+        sender: "User",
+        message: userInput,
+        timestamp: getCurrentTimestamp(),
+      },
+    ]);
+
     fetch("http://127.0.0.1:5000/chatbot", {
       method: "POST",
       headers: {
@@ -20,11 +36,23 @@ function Main({ open }) {
     })
       .then((response) => response.json())
       .then((data) => {
+        // console.log(`Data: ${data}`);
         if (data.status === "success") {
           console.log(data);
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              sender: "AskNishauri",
+              message: data.message,
+              timestamp: getCurrentTimestamp(),
+            },
+          ]);
         } else {
-          console.log(data);
+          console.error("Error:", data.message);
         }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
       });
   }
 
@@ -48,11 +76,10 @@ function Main({ open }) {
       />
 
       {/* chat container */}
-      <ChatContainer />
+      <ChatContainer messages={messages} />
 
       {/* input */}
       <Inputbar handleInput={handleInput} />
-    
     </div>
   );
 }

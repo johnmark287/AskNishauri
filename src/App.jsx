@@ -1,19 +1,18 @@
-import { useState } from 'react'
-import Main from './components/Main'
-import Sidebar from './components/Sidebar'
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
-  const [open, setOpen] = useState(true);
-  
-  function handleOpen() {
-    setOpen(!open);
-  }
   return (
-    <div className="flex">
-        <Sidebar open={open} setOpen={handleOpen} />
-        <Main open={open} />
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

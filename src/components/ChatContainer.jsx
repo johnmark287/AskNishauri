@@ -19,13 +19,13 @@ function ChatContainer({ messages, isLoading }) {
       {isLoading && (
         <div className="pl-[10px] flex items-center border border-[#25282d]  py-2 m-2 rounded-sm">
           <div className="">
-            <div className="min-w-[160px] font-bold text-[#5aa2e0]">
+            <div className="min-w-[160px] font-bold text-[#29f6ac]">
               AskNishauri
             </div>
             <Skeleton count={1} className="h-4 w-[100%]" />
           </div>
           <div className="w-full p-2">
-          <Skeleton count={4} className="h-4 w-[100%]" />
+            <Skeleton count={4} className="h-4 w-[100%]" />
           </div>
         </div>
       )}

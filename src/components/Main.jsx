@@ -12,7 +12,24 @@ function Main({ open }) {
 
   function getCurrentTimestamp() {
     const date = new Date();
-    return `${date.getHours()}:${date.getMinutes()}`;
+
+    // Get day of the week (e.g., "WED")
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    const dayOfWeek = daysOfWeek[date.getDay()];
+
+    // Convert hour to 12-hour format
+    let hour = date.getHours() % 12;
+    hour = hour === 0 ? 12 : hour; // Convert 0 to 12 for 12-hour format
+    hour = hour < 10 ? "0" + hour : hour; // Add leading zero if needed
+
+    // Add leading zero for single digit minutes
+    const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+
+    // Get AM or PM
+    const period = date.getHours() >= 12 ? "PM" : "AM";
+
+    // Return formatted timestamp
+    return `${dayOfWeek} ${hour}:${minutes} ${period}`;
   }
 
   function handleInput() {

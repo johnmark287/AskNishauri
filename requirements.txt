@@ -1,0 +1,9 @@
+langchain
+langchain-google-genai
+# dotenv
+chromadb # Vector storage
+tiktoken  # For embeddings
+spacy # for processing sentence complexity to determine chunk size
+flask
+# "Unstructured[json]" # For markdown
+# "unstructured[pdf]" # For PDFs

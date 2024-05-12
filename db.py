@@ -49,11 +49,10 @@ def load_documents():
     Returns:
         list[Document]: A list of documents.
     """
-    loader = JSONLoader("./data/testData.json", jq_schema=".", text_content=False)
+    loader = JSONLoader("./data/hospitals.geojson", jq_schema=".", text_content=False)
 
     document = loader.load()
     return document
-
 
 
 def split_json(documents: list[Document]):
@@ -71,7 +70,7 @@ def split_json(documents: list[Document]):
     for document in documents:
         page_content = document.page_content
         data = json.loads(page_content)
-        patients = data["patients"]
+        patients = data["features"]
         for patient in patients:
             chunk_document = Document(json.dumps(patient), metadata=document.metadata)
             chunks.append(chunk_document)

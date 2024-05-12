@@ -8,6 +8,7 @@ function Main({ open }) {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -26,6 +27,7 @@ function Main({ open }) {
         timestamp: getCurrentTimestamp(),
       },
     ]);
+    setIsLoading(true);
 
     fetch("http://127.0.0.1:5000/chatbot", {
       method: "POST",
@@ -36,7 +38,6 @@ function Main({ open }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(`Data: ${data}`);
         if (data.status === "success") {
           console.log(data);
           setMessages((prevMessages) => [
@@ -53,6 +54,9 @@ function Main({ open }) {
       })
       .catch((error) => {
         console.error("Error:", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }
 
@@ -76,7 +80,7 @@ function Main({ open }) {
       />
 
       {/* chat container */}
-      <ChatContainer messages={messages} />
+      <ChatContainer messages={messages} isLoading={isLoading} />
 
       {/* input */}
       <Inputbar handleInput={handleInput} />
@@ -84,7 +88,6 @@ function Main({ open }) {
   );
 }
 
-// Define propTypes for the bar component
 Main.propTypes = {
   open: PropTypes.bool.isRequired,
 };

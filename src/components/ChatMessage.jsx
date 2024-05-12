@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function ChatMessage({ sender, timestamp, message }) {
   return (
-    <div className="pl-[10px] flex items-center border-b border-b-[#25282d] h-[40px] py-[27px]">
+    <div className="pl-[10px] flex items-center border border-[#25282d]  py-2 m-2 rounded-sm">
       <div className="">
         <div className="min-w-[160px] font-bold text-[#5aa2e0]">{sender}</div>
         <div className="text-[#808993]">{timestamp}</div>

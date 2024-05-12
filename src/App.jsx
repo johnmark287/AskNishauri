@@ -1,23 +1,18 @@
-import { useState } from 'react'
-import Main from './components/Main'
-import Sidebar from './components/Sidebar'
-import { SkeletonTheme } from "react-loading-skeleton";
-
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
-  const [open, setOpen] = useState(true);
-  
-  function handleOpen() {
-    setOpen(!open);
-  }
   return (
-    <div className="flex">
-      <SkeletonTheme baseColor="#202020" highlightColor="#444">
-        <Sidebar open={open} setOpen={handleOpen} />
-        <Main open={open} />
-      </SkeletonTheme>
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

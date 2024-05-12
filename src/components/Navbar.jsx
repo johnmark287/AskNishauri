@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 function Navbar({ logout, setLogout, settings, setSettings, open }) {
   return (
     <div className="relative flex justify-between bg-[hsl(216,8%,12%)] border-b border-gray-700 p-3 te">
-      <div className="relative  hover:cursor-pointer hover:text-white active:bg-black hover:bg-[#4b535c] bg-[rgba(35,38,43,255)] rounded-2xl flex justify-between">
+      <div className="hover:cursor-pointer hover:text-white active:bg-black hover:bg-[#4b535c] bg-[rgba(35,38,43,255)] rounded-2xl flex justify-between">
         <button
           type="button"
           onClick={() => {
@@ -16,7 +16,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
         <div
           className={`${
             logout ? "block" : "hidden"
-          } shadow-sm shadow-white absolute right-0 top-9 text-black hover:text-white bg-white rounded-md p-1`}
+          } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-white bg-white rounded-md p-1`}
         >
           <a
             className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3"
@@ -38,7 +38,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
           </svg>
         </button>
       </div>
-      <div className="relative flex justify-between">
+      <div className="flex justify-between">
         <button
           type="button"
           className="px-2 mx-1 text-[rgba(37,188,134,255)] hover:text-[hsl(216,8%,12%)] hover:bg-[rgb(118,194,166)] active:bg-[rgb(19,94,67)] rounded-2xl bg-[rgba(30,48,44,255)]"
@@ -67,7 +67,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
           <div
             className={`${
               settings ? "block" : "hidden"
-            } shadow-sm shadow-white bg-white rounded-md absolute left-0 top-9`}
+            } shadow-sm shadow-white bg-white rounded-md absolute right-[40px] z-50 top-[47px]`}
           >
             <a
               className="hover:bg-[rgba(35,38,43,255)] block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"

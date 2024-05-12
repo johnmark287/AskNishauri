@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 function Inputbar({handleInput}) {
   return (
-    <div className="text-white flex justify-center items-center bottom-0 right-0 left-0  h-[80px] bg-[rgba(29,31,34,255)] ">
+    <div className="text-white flex justify-center items-center absolute bottom-0 right-0 left-0  h-[80px] bg-[rgba(29,31,34,255)] ">
       <div className="absolute bg-[#23262b] w-[69%] rounded-3xl p-2">
         <input
           className="ml-3 relative break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"

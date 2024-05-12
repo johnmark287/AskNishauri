@@ -32,7 +32,7 @@ function Main({ open }) {
     return `${dayOfWeek} ${hour}:${minutes} ${period}`;
   }
 
-  function handleInput() {
+  async function handleInput() {
     const userInput = document.getElementById("input").value;
     document.getElementById("input").value = "";
 
@@ -46,7 +46,7 @@ function Main({ open }) {
     ]);
     setIsLoading(true);
 
-    fetch("http://127.0.0.1:5000/chatbot", {
+    await fetch("http://127.0.0.1:5000/chatbot", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

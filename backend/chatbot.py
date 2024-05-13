@@ -20,18 +20,19 @@ api_key = os.getenv("GOOGLE_API_KEY")
 
 CHROMA_DB_PATH = "database/chroma"
 PROMPT_TEMPLATE = """
+INSTRUCTIONS:
+If the QUESTION is a greeting, ignore the DOCUMENT and respond with a greeting.
+Answer the users QUESTION using the DOCUMENT text above.
+Keep your answer ground in the facts of the DOCUMENT.
+When answering, always use a formal doctor's tone.
+Avoid using the phrase "according to the document" in your response.
+
 DOCUMENT:
 {context}
 
 QUESTION:
 {question}
 
-INSTRUCTIONS:
-Answer the users QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-When answering, always use a formal doctor's tone.
-Avoid using the phrase "according to the document" instead use "from your records"
-If the DOCUMENT doesn't contain the facts to answer the QUESTION return NONE
 """
 
 @app.route("/chatbot", methods=["POST"])

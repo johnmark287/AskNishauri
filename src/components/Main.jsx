@@ -1,8 +1,7 @@
 import Navbar from "./Navbar";
 
 /**
- * input todo: fix text overflowing its component
- * main todo: main and sidebar components not occupying the whole page
+ * todo: whatsapp feature.
  */
 function Main() {
   return (
@@ -12,55 +11,37 @@ function Main() {
       <Navbar />
 
       {/* Main Component */}
-      <div className="relative text-white pl-3 h-[100%] overflow-y-scroll">
-        <div className="pl-[10px] flex items-center border-b border-b-[#25282d] h-[40px] py-[27px]">
-          <div className="">
-            <div className="min-w-[160px] font-bold text-[#5aa2e0]">User</div>
-            <div className="text-[#808993]">at Tue, 28 Feb</div>
+      <div className="relative text-white h-[100%] overflow-y-scroll">
+        <div className="flex justify-end p-2">
+          <div className="relative min-w-[120px] p-2 pb-7 flex bg-black rounded-2xl items-center border-b border-b-[#25282d]">
+            <div className="">
+              <div className="hidden min-w-[160px] font-bold text-[#5aa2e0]">
+                User
+              </div>
+              <div className="absolute bottom-2 right-3 text-[#808993]">
+                4:21a.m
+              </div>
+            </div>
+            <div className="flex flex-row self-end p-1">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            </div>
           </div>
-          <div className="">How does AskNishauri work?</div>
         </div>
-        <div className="relative pl-[10px] h-[100%] py-[20px] flex flex-col">
-          <div className="flex flex-row">
-            <div className="self-start">
-              <div className="text-[#29f6ac] min-w-[160px] h-[100%]">
+        <div className="relative p-1 flex ">
+          <div className="relative bg-black min-w-[120px] p-2 pb-7 m-1 rounded-2xl flex self-start">
+            <div className="  self-start">
+              <div className="hidden text-[#29f6ac] min-w-[160px] h-[100%]">
                 AskNishauri
               </div>
-              <div className="text-[#808993]">Response 04:21 a.m</div>
+              <div className="absolute bottom-2 right-3 text-[#808993]">
+                04:21 a.m
+              </div>
             </div>
-            <div className="">
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti
-              blanditiis facilis perferendis ab obcaecati magni omnis numquam
-              quos tenetur hic odit ipsum commodi beatae quaerat recusandae
-              eligendi iste repellat officia aperiam cupiditate delectus, non
-              quisquam corporis magnam! Velit, quisquam provident! Quo nemo
-              deleniti libero suscipit officiis fuga sequi dolorem nam iste
-              aperiam, nobis distinctio, ut quidem provident ex iure maiores
-              animi vitae consequuntur exercitationem architecto qui ratione
-              consequatur. Eveniet neque ullam nam officia atque laboriosam. Ex
-              facilis eaque omnis non dolorem aspernatur soluta placeat sunt,
-              unde id accusamus debitis hic nobis impedit saepe quod, repellat
-              iure aliquid itaque. Distinctio consectetur eos assumenda harum a
-              itaque laboriosam velit voluptatem. Magni aliquam eum quasi
-              quisquam exercitationem, deleniti nesciunt unde sed, inventore
-              fugiat quibusdam temporibus quas a, alias tempore fuga eligendi
-              beatae et esse. Quidem sapiente hic veniam, assumenda temporibus
-              repellendus atque sint laborum ipsa deleniti debitis rerum
-              suscipit corrupti facere ipsam, quasi tempora laboriosam illum
-              fuga nesciunt est distinctio. Vel voluptatem commodi ex
-              exercitationem reiciendis sit ipsum beatae quidem magnam ducimus
-              ipsa laborum, eius explicabo minus doloremque natus dolorem?
-              Maiores id culpa amet laudantium itaque sunt debitis praesentium
-              adipisci, laboriosam cumque eligendi excepturi asperiores
-              consequuntur nemo iure, natus velit, autem commodi sed corporis
-              quia quas tenetur consequatur eos? Reprehenderit culpa nulla,
-              autem necessitatibus quam totam. Earum nisi modi, aliquam
-              voluptatum aut tempora quia officia. Dicta ab reprehenderit
-              numquam quibusdam fugit, fugiat labore ducimus molestiae quis
-              iusto hic assumenda voluptas temporibus culpa dignissimos quas
-              reiciendis, consectetur expedita soluta adipisci natus
-              exercitationem! Aliquam, corrupti.
+            <div className="p-1">
+              Lorem ipsum dolor sit, amet consectetur.
             </div>
+            {/* <div className="absolute rounded-[100%] h-[20px] w-[20px] bottom-2 right-[-10px] z-[-2px] bg-white"></div>
+            <div className="absolute rounded-[100%] h-[20px] w-[20px] bottom-0 right-[-10px] z-[-1px] bg-black"></div> */}
           </div>
         </div>
       </div>

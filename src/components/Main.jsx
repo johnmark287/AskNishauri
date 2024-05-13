@@ -19,29 +19,31 @@ function Main() {
                 User
               </div>
               <div className="absolute bottom-2 right-3 text-[#808993]">
-                4:21a.m
+                4:21 a.m
               </div>
             </div>
             <div className="flex flex-row self-end p-1">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi hic nihil quas, odio doloribus, architecto unde dignissimos corrupti culpa assumenda error autem officia. Accusamus quasi perferendis quidem earum quos doloremque?
             </div>
+            <div className="absolute rounded-[100%] h-[20px] w-[20px] bottom-2 right-[-9px] z-1 bg-black"></div>
+            <div className="absolute rounded-[100%] h-[20px] w-[20px] bottom-3 right-[-19.4px] z-0 bg-[rgba(29,31,34,255)]"></div>
           </div>
         </div>
         <div className="relative p-1 flex ">
           <div className="relative bg-black min-w-[120px] p-2 pb-7 m-1 rounded-2xl flex self-start">
-            <div className="  self-start">
+            <div className="self-start">
               <div className="hidden text-[#29f6ac] min-w-[160px] h-[100%]">
                 AskNishauri
               </div>
               <div className="absolute bottom-2 right-3 text-[#808993]">
-                04:21 a.m
+                4:21 a.m
               </div>
             </div>
-            <div className="p-1">
+            <div className="p-1 mb-1">
               Lorem ipsum dolor sit, amet consectetur.
             </div>
-            {/* <div className="absolute rounded-[100%] h-[20px] w-[20px] bottom-2 right-[-10px] z-[-2px] bg-white"></div>
-            <div className="absolute rounded-[100%] h-[20px] w-[20px] bottom-0 right-[-10px] z-[-1px] bg-black"></div> */}
+            <div className="absolute rounded-full h-[20px] w-[20px] bottom-2 left-[-9px] z-1 bg-black"></div>
+            <div className="absolute rounded-full h-[20px] w-[20px] bottom-3 left-[-19.1px] z-0 bg-[rgba(29,31,34,255)]"></div>
           </div>
         </div>
       </div>

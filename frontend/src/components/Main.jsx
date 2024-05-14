@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Navbar from "./Navbar";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 
-function Main({ open }) {
+function Main() {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -93,7 +93,7 @@ function Main({ open }) {
         setLogout={handleLogout}
         settings={settings}
         setSettings={handleSettings}
-        open={open}
+        // open={open}
       />
 
       {/* chat container */}
@@ -105,8 +105,8 @@ function Main({ open }) {
   );
 }
 
-Main.propTypes = {
-  open: PropTypes.bool.isRequired,
-};
+// Main.propTypes = {
+  // open: PropTypes.bool.isRequired,
+// };
 
 export default Main;

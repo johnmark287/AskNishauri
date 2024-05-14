@@ -13,7 +13,7 @@ function Home() {
     <div className="flex">
       <SkeletonTheme baseColor="#202020" highlightColor="#444">
         {/* <Sidebar open={open} setOpen={handleOpen} /> */}
-        <Main open={open} />
+        <Main/>
       </SkeletonTheme>
     </div>
   );

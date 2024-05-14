@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 //   }
 // }
 
-function Navbar({ logout, setLogout, settings, setSettings, open }) {
+function Navbar({ logout, setLogout, settings, setSettings }) {
   return (
     <div className="relative flex justify-between bg-[hsl(216,8%,12%)] border-b border-gray-700 p-3 te">
       <div className="hover:cursor-pointer hover:text-white active:bg-black hover:bg-[#4b535c] bg-[rgba(35,38,43,255)] rounded-2xl flex justify-between">
@@ -132,7 +132,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
 Navbar.propTypes = {
   logout: PropTypes.bool.isRequired,
   setLogout: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
+  // open: PropTypes.bool.isRequired,
   setSettings: PropTypes.func.isRequired,
   settings: PropTypes.bool.isRequired,
 };

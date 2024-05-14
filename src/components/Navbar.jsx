@@ -2,24 +2,24 @@ import PropTypes from "prop-types";
 
 function Navbar({ logout, setLogout, settings, setSettings, open }) {
   return (
-    <div className="relative flex justify-between bg-[hsl(216,8%,12%)] border-b border-gray-700 p-3 te">
-      <div className="hover:cursor-pointer hover:text-white active:bg-black hover:bg-[#4b535c] bg-[rgba(35,38,43,255)] rounded-2xl flex justify-between">
+    <div className="relative flex justify-between bg-[#fbe2ff] p-3 te">
+      <div className="hover:cursor-pointer hover:text-white active:bg-white hover:bg-[#e0c8f6] transition duration-200 ease-in bg-[#c791fb] rounded-2xl flex justify-between">
         <button
           type="button"
           onClick={() => {
             setLogout();
           }}
-          className="my-1 mx-4 hover:text-white text-[#87929a]"
+          className="my-1 mx-4 hover:text-white text-white"
         >
           Johnmark Muhando
         </button>
         <div
           className={`${
             logout ? "block" : "hidden"
-          } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-white bg-white rounded-md p-1`}
+          } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-black bg-white rounded-md p-1`}
         >
           <a
-            className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3"
+            className="hover:bg-[#c791fb] transition duration-200 ease-in rounded-md active:bg-[rgba(82,91,100,255)] p-1 md:px-3"
             href=""
           >
             Log Out
@@ -38,23 +38,26 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
           </svg>
         </button>
       </div>
+      <div className="font-black translate-y-1">
+        Chat with Nishauri
+      </div>
       <div className="flex justify-between">
         <button
           type="button"
-          className="px-2 mx-1 text-[rgba(37,188,134,255)] hover:text-[hsl(216,8%,12%)] hover:bg-[rgb(118,194,166)] active:bg-[rgb(19,94,67)] rounded-2xl bg-[rgba(30,48,44,255)]"
+          className="hidden px-2 mx-1 text-[rgba(37,188,134,255)] hover:text-[hsl(216,8%,12%)] hover:bg-[rgb(118,194,166)] active:bg-[rgb(19,94,67)] rounded-2xl bg-[rgba(30,48,44,255)]"
         >
           Export chat
         </button>
-        <div>
+        <div className="active:bg-[rgba(82,91,100,255)] hover:bg-[#e0c8f6] bg-[#c791fb] rounded-md">
           <button
             type="button"
             onClick={() => {
               setSettings();
             }}
-            className="active:bg-black hover:bg-[#4b535c] bg-[rgba(35,38,43,255)] p-1 rounded-md mx-1"
+            className="active:bg-[rgba(82,91,100,255)] hover:bg-[#e0c8f6] bg-[#c791fb] p-1 rounded-md "
           >
             <svg
-              className={` fill-current hover:fill-white text-[#87929a] `}
+              className={` fill-current hover:fill-white text-white`}
               xmlns="http://www.w3.org/2000/svg"
               height="24px"
               viewBox="0 -960 960 960"
@@ -70,32 +73,32 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
             } shadow-sm shadow-white bg-white rounded-md absolute right-[40px] z-50 top-[47px]`}
           >
             <a
-              className="hover:bg-[rgba(35,38,43,255)] block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"
+              className="hover:bg-[#c791fb] transition duration-200 ease-in block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"
               href=""
             >
               Theme
             </a>
             <a
-              className="hover:bg-[rgba(35,38,43,255)] block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1 md: text-nowrap"
+              className="hover:bg-[#c791fb] transition duration-200 ease-in block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1 md: text-nowrap"
               href=""
             >
               Change Language
             </a>
             <a
-              className="hover:bg-[rgba(35,38,43,255)] block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"
+              className="hover:bg-[#c791fb] transition duration-200 ease-in block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"
               href=""
             >
               Export Chat
             </a>
             <a
-              className="hover:bg-[rgba(35,38,43,255)] block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1 md:text-nowrap"
+              className="hover:bg-[#c791fb] transition duration-200 ease-in block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1 md:text-nowrap"
               href=""
             >
               Delete Whole Chat
             </a>
           </div>
         </div>
-        <button type="button" className="mx-1">
+        <button type="button" className="hidden mx-1">
           {" "}
           {/* hidden on large screen size and visible on small screen size */}
           <svg

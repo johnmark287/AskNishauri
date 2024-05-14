@@ -1,5 +1,16 @@
 import PropTypes from "prop-types";
 
+// async function handleLogout(e) {
+//   e.preventDefault();
+//   await fetch("http://127.0.0.1:5000/login", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+
+//   }
+// }
+
 function Navbar({ logout, setLogout, settings, setSettings, open }) {
   return (
     <div className="relative flex justify-between bg-[hsl(216,8%,12%)] border-b border-gray-700 p-3 te">
@@ -11,7 +22,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
           }}
           className="my-1 mx-4 hover:text-white text-[#87929a]"
         >
-          Johnmark Muhando
+          {localStorage.getItem("user")}
         </button>
         <div
           className={`${

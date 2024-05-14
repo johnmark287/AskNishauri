@@ -5,7 +5,7 @@ Chatbot logic and functionality
 import argparse
 import os
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
@@ -15,6 +15,8 @@ from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+app.secret_key = "es"
+
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
@@ -34,6 +36,34 @@ QUESTION:
 {question}
 
 """
+
+@app.route("/login", methods=["POST"])
+def login():
+    print("Login invoked")
+    data = request.get_json()
+    print(f"Data: {data}")
+    email = data["email"]
+    password = data["password"]
+
+    # Query the database for the user
+    with open("../data/testData.json", "r") as file:
+        database = json.load(file)
+    
+    for patient in database["patients"]:
+        if patient["patient_id"] == email and patient["contact"]["phone"] == password:
+            session["user"] = patient["patient_id"]
+            return jsonify({"name": patient["name"], "status": "success"})
+        else:
+            return jsonify({"message": "Login failed", "status": "error"})
+
+    return jsonify({"message": "Login failed, Patient does not exist", "status": "error"})
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    session.pop("user", None)
+    return jsonify({"message": "User logged out", "status": "success"})
+
 
 @app.route("/chatbot", methods=["POST"])
 def chatbot():
@@ -78,8 +108,6 @@ def chatbot():
             # .replace("'", " ")
             # .strip()
         )
-
-
 
 
 def main():

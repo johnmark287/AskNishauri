@@ -1,14 +1,16 @@
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 
-function Inputbar({handleInput}) {
+function Inputbar({ handleInput, handleEnterKey }) {
   return (
-    <div className="text-white flex justify-center items-center bottom-0 right-0 left-0  h-[80px] bg-[rgba(29,31,34,255)] ">
-      <div className="absolute bg-[#23262b] w-[69%] rounded-3xl p-2">
+    <div className="text-white flex justify-center items-center h-[80px] md:h-[100px] lg:h-[120] bg-gradient-to-t from-[#fbe2ff] to-white ">
+      <div className="absolute bg-[#ffffff] w-[69%] rounded-3xl p-2 border-[2.5px] border-[#fbe2ff]">
         <input
-          className="ml-3 relative break-normal break-words whitespace-nowrap outline-none bg-transparent w-[95%]"
+          className="ml-3 relative outline-none bg-transparent text-black w-[95%]"
           type="textarea"
           name="input"
           id="input"
+          placeholder="AskNishauri..."
+          onKeyDown={handleEnterKey}
         />
         {/* <button
             type="button"
@@ -28,10 +30,10 @@ function Inputbar({handleInput}) {
         <button
           type="submit"
           onClick={handleInput}
-          className="rounded-2xl absolute bottom-[5px] active:bg-[rgb(19,94,67)] right-2 p-[3px] bg-[rgba(30,48,44,255)] hover:bg-[rgb(118,194,166)]"
+          className="rounded-2xl absolute bottom-[5px] active:bg-[#c791fb] right-2 p-[3px] bg-transparent hover:bg-[#e0c8f6]"
         >
           <svg
-            className="fill-current  text-[rgba(37,188,134,255)] hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
+            className="fill-current  text-black hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
             viewBox="0 -960 960 960"
@@ -48,6 +50,7 @@ function Inputbar({handleInput}) {
 
 Inputbar.propTypes = {
   handleInput: PropTypes.func.isRequired,
-}
+  handleEnterKey: PropTypes.func.isRequired,
+};
 
-export default Inputbar
+export default Inputbar;

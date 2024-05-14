@@ -5,9 +5,9 @@ import ChatMessage from "./ChatMessage";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-function ChatContainer({ messages, isLoading }) {
+function ChatContainer({ messages, isLoading, messagesEndRef }) {
   return (
-    <div className="relative text-white pl-3 h-[100%] overflow-y-scroll">
+    <div className="bg-gradient-to-b from-[#fbe2ff] to-white relative text-white pl-3 h-full overflow-y-scroll">
       {messages.map((message, index) => (
         <ChatMessage
           key={index}
@@ -29,6 +29,7 @@ function ChatContainer({ messages, isLoading }) {
           </div>
         </div>
       )}
+      <div ref={messagesEndRef}></div>
     </div>
   );
 }
@@ -42,6 +43,7 @@ ChatContainer.propTypes = {
     })
   ).isRequired,
   isLoading: PropTypes.bool.isRequired,
+  messagesEndRef: PropTypes.bool.isRequired,
 };
 
 export default ChatContainer;

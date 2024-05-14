@@ -56,7 +56,7 @@ async function handleLogin(e) {
 function Login() {
   return (
     <div className="">
-      <div className="h-screen flex justify-center items-center">
+      <div className="bg-gradient-to-b from-[#fbe2ff] to-white h-screen flex justify-center items-center">
         <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>Login</CardTitle>
@@ -65,8 +65,8 @@ function Login() {
           <CardContent>
             <div className="grid gap-2">
               <div className="flex flex-col items-start space-y-2 my-[10px]">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="m@example.com" />
+                <Label htmlFor="phone">Phone Number</Label>
+                <Input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" placeholder="07********" />
               </div>
             </div>
             <div className="grid gap-2">

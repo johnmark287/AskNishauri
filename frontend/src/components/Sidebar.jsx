@@ -5,7 +5,7 @@ function Sidebar({ open, setOpen }) {
     <aside
       className={`${
         open ? "md:w-[260px]" : "w-[-260px]"
-      } duration-300 bg-[rgba(35,38,43,255)] h-screen flex flex-col text-[rgba(131,142,152,255)]`}
+      } hidden duration-300 bg-[rgba(35,38,43,255)] h-screen flex-col text-[rgba(131,142,152,255)]`}
     >
       <div className="flex justify-between border-b border-b-gray-500 text-left mY-1 p-[6px] relative my-[18px]">
         <div className={`${open ? "hidden md:block" : "hidden"} py-[2.23px]`}>AskNishauri</div>

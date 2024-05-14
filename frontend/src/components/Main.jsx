@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar";
 // import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
@@ -9,19 +9,6 @@ function Main() {
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  useEffect(() => {
-    const history = JSON.parse(localStorage.getItem("history"));
-    if (history.length > 0) {
-      setMessages(history);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("history", JSON.stringify(messages));
-  }, [messages]);
-
-  // setMessages(JSON.parse(localStorage.getItem("history")));
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -92,6 +79,12 @@ function Main() {
       });
   }
 
+  function handleEnterKey(event) {
+    if (event.key === 'Enter') {
+      handleInput()
+    }
+  }
+
   function handleLogout() {
     setLogout(!logout);
   }
@@ -108,14 +101,14 @@ function Main() {
         setLogout={handleLogout}
         settings={settings}
         setSettings={handleSettings}
-        // open={open}
+        open={open}
       />
 
       {/* chat container */}
-      <ChatContainer messages={messages} isLoading={isLoading} />
+      <ChatContainer messages={messages} isLoading={isLoading} messagesEndRef={messagesEndRef} />
 
       {/* input */}
-      <Inputbar handleInput={handleInput} />
+      <Inputbar handleInput={handleInput} handleEnterKey={handleEnterKey} />
     </div>
   );
 }

@@ -10,6 +10,22 @@ function Main({ open }) {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
+  const closeMenuRef = useRef();
+
+  useEffect(() => {
+    function handleCloseMenuRef(event) {
+      if(!closeMenuRef.current.contains(event.target)) {
+        setSettings(false);
+        setLogout(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleCloseMenuRef);
+
+    return () => {
+      document.removeEventListener('mousedown', handleCloseMenuRef);
+    }
+  });
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView();
@@ -105,6 +121,7 @@ function Main({ open }) {
         settings={settings}
         setSettings={handleSettings}
         open={open}
+        closeMenuRef={closeMenuRef}
       />
 
       {/* chat container */}

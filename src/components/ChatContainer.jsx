@@ -7,7 +7,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 function ChatContainer({ messages, isLoading, messagesEndRef }) {
   return (
-    <div className="bg-gradient-to-b from-[#fbe2ff] to-white relative text-white pl-3 h-[77%] overflow-y-scroll">
+    <div className="bg-gradient-to-b from-[#fbe2ff] to-white relative text-white pl-3 h-full overflow-y-scroll">
       {messages.map((message, index) => (
         <ChatMessage
           key={index}

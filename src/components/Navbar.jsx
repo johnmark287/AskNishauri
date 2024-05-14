@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Navbar({ logout, setLogout, settings, setSettings, open }) {
+function Navbar({ logout, setLogout, settings, setSettings, open, closeMenuRef }) {
   return (
     <div className="relative flex justify-between bg-[#fbe2ff] p-3">
       <div className="hover:cursor-pointer hover:text-white active:bg-white hover:bg-[#e0c8f6] transition duration-200 ease-in bg-[#c791fb] rounded-2xl flex justify-between">
@@ -10,6 +10,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
             setLogout();
           }}
           className="my-1 mx-4 hover:text-white text-white"
+          ref={closeMenuRef}
         >
           Johnmark Muhando
         </button>
@@ -38,8 +39,8 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
           </svg>
         </button>
       </div>
-      <div className="font-black translate-y-1">
-        Chat with Nishauri
+      <div className="font-black translate-y-1 scale-y-150 scale-x-150">
+        Chat with AskNishauri
       </div>
       <div className="flex justify-between">
         <button
@@ -71,6 +72,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
             className={`${
               settings ? "block" : "hidden"
             } shadow-sm shadow-white bg-white rounded-md absolute right-[40px] z-50 top-[47px]`}
+            ref={closeMenuRef}
           >
             <a
               className="hover:bg-[#c791fb] transition duration-200 ease-in block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"
@@ -127,6 +129,7 @@ Navbar.propTypes = {
   open: PropTypes.bool.isRequired,
   setSettings: PropTypes.func.isRequired,
   settings: PropTypes.bool.isRequired,
+  closeMenuRef: PropTypes.bool.isRequired,
 };
 
 export default Navbar;

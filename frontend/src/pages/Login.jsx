@@ -39,6 +39,8 @@ async function handleLogin(e) {
     .then((data) => {
       if (data.status === "success") {
         localStorage.setItem("user", data.name);
+        localStorage.setItem("id", data.id);
+        localStorage.setItem("history", JSON.stringify(data.history));
         window.location.href = "/home";
       } else {
         console.error(data.message);

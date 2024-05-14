@@ -21,7 +21,7 @@ app.secret_key = "es"
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
-CHROMA_DB_PATH = "database/chroma"
+CHROMA_DB_PATH = "../database/chroma"
 PROMPT_TEMPLATE = """
 INSTRUCTIONS:
 If the QUESTION is a greeting, ignore the DOCUMENT and respond with a greeting.
@@ -49,11 +49,17 @@ def login():
     # Query the database for the user
     with open("../data/testData.json", "r") as file:
         database = json.load(file)
+
     
     for patient in database["patients"]:
         if patient["patient_id"] == email and patient["contact"]["phone"] == password:
+            with open("../data/chats-hist.json", "r") as file:
+                users_hist = json.load(file)
+            user_hist = users_hist.get(email, [])
+            print(f"User history: {user_hist}")
+
             session["user"] = patient["patient_id"]
-            return jsonify({"name": patient["name"], "status": "success"})
+            return jsonify({"id":patient["patient_id"],"name": patient["name"], "history": user_hist ,"status": "success"})
         else:
             return jsonify({"message": "Login failed", "status": "error"})
 
@@ -62,6 +68,18 @@ def login():
 
 @app.route("/logout", methods=["POST"])
 def logout():
+    data = request.get_json()
+    user = data["user"]
+    history = data["history"]
+    print(f"User: {data}")
+
+    # Save the history to a json file with user as key
+    with open("../data/chats-hist.json", "r") as file:
+        users_hist = json.load(file)
+    users_hist[user] = history
+    with open("../data/chats-hist.json", "w") as file:
+        json.dump(users_hist, file)
+
     session.pop("user", None)
     return jsonify({"message": "User logged out", "status": "success"})
 
@@ -73,17 +91,18 @@ def chatbot():
     print(f"Data: {data}")
     query_text = data["message"]
 
+
     embedding_function = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001", google_api_key=api_key
     )
     db = Chroma(persist_directory=CHROMA_DB_PATH, embedding_function=embedding_function)
 
     results = db.similarity_search_with_relevance_scores(query_text, k=5)
-    print(f"Results: {results}")
+    # print(f"Results: {results}")
 
     if len(results) == 0 or results[0][1] < 0.5:
         print("No results found")
-        return
+    
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)

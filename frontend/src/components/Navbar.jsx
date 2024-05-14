@@ -7,12 +7,15 @@ async function handleLogout(e) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({}),
+    body: JSON.stringify({user: localStorage.getItem("id"), history: JSON.parse(localStorage.getItem("history"))}),
   })
   .then((response) => response.json())
   .then((data) => {
     if (data.status === "success") {
       localStorage.removeItem("user");
+      localStorage.removeItem("id");
+      localStorage.removeItem("history");
+
       window.location.href = "/login";
     } else {
       console.error(data.message);

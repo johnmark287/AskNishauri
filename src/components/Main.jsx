@@ -77,6 +77,12 @@ function Main({ open }) {
       });
   }
 
+  function handleEnterKey(event) {
+    if (event.key === 'Enter') {
+      handleInput()
+    }
+  }
+
   function handleLogout() {
     setLogout(!logout);
   }
@@ -100,7 +106,7 @@ function Main({ open }) {
       <ChatContainer messages={messages} isLoading={isLoading} />
 
       {/* input */}
-      <Inputbar handleInput={handleInput} />
+      <Inputbar handleInput={handleInput} handleEnterKey={handleEnterKey} />
     </div>
   );
 }

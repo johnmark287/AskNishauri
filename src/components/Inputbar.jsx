@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-function Inputbar({ handleInput }) {
+function Inputbar({ handleInput, handleEnterKey }) {
   return (
     <div className="text-white flex justify-center items-center absolute bottom-0 right-0 left-0  h-[80px] bg-gradient-to-t from-[#fbe2ff] to-white ">
       <div className="absolute bg-[#ffffff] w-[69%] rounded-3xl p-2 border-[2.5px] border-[#fbe2ff]">
@@ -10,6 +10,7 @@ function Inputbar({ handleInput }) {
           name="input"
           id="input"
           placeholder="AskNishauri..."
+          onKeyDown={handleEnterKey}
         />
         {/* <button
             type="button"
@@ -31,18 +32,16 @@ function Inputbar({ handleInput }) {
           onClick={handleInput}
           className="rounded-2xl absolute bottom-[5px] active:bg-[#c791fb] right-2 p-[3px] bg-transparent hover:bg-[#e0c8f6]"
         >
-          <a href="">
-            <svg
-              className="fill-current  text-black hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
-              xmlns="http://www.w3.org/2000/svg"
-              height="24px"
-              viewBox="0 -960 960 960"
-              width="24px"
-              fill="#e8eaed"
-            >
-              <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
-            </svg>
-          </a>
+          <svg
+            className="fill-current  text-black hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#e8eaed"
+          >
+            <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
+          </svg>
         </button>
       </div>
     </div>
@@ -51,6 +50,7 @@ function Inputbar({ handleInput }) {
 
 Inputbar.propTypes = {
   handleInput: PropTypes.func.isRequired,
+  handleEnterKey: PropTypes.func.isRequired,
 };
 
 export default Inputbar;

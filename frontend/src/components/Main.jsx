@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 // import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
@@ -9,6 +9,19 @@ function Main() {
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const history = JSON.parse(localStorage.getItem("history"));
+    if (history.length > 0) {
+      setMessages(history);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("history", JSON.stringify(messages));
+  }, [messages]);
+
+  // setMessages(JSON.parse(localStorage.getItem("history")));
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -39,7 +52,7 @@ function Main() {
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        sender: "User",
+        sender: localStorage.getItem("user"),
         message: userInput,
         timestamp: getCurrentTimestamp(),
       },
@@ -51,7 +64,7 @@ function Main() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: userInput }),
+      body: JSON.stringify({ message: userInput, history: messages}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -65,6 +78,8 @@ function Main() {
               timestamp: getCurrentTimestamp(),
             },
           ]);
+          // localStorage.removeItem("history");
+          // localStorage.setItem("history", JSON.stringify(messages));
         } else {
           console.error("Error:", data.message);
         }
@@ -106,7 +121,7 @@ function Main() {
 }
 
 // Main.propTypes = {
-  // open: PropTypes.bool.isRequired,
+// open: PropTypes.bool.isRequired,
 // };
 
 export default Main;

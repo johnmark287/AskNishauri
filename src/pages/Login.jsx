@@ -17,7 +17,7 @@ import { Label } from "@/components/ui/label";
 function Login() {
   return (
     <div className="">
-      <div className="h-screen flex justify-center items-center">
+      <div className="bg-gradient-to-b from-[#fbe2ff] to-white h-screen flex justify-center items-center">
         <Card className="w-[350px]">
           <CardHeader>
             <CardTitle>Login</CardTitle>

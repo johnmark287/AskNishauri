@@ -1,15 +1,27 @@
 import PropTypes from "prop-types";
 
-// async function handleLogout(e) {
-//   e.preventDefault();
-//   await fetch("http://127.0.0.1:5000/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-
-//   }
-// }
+async function handleLogout(e) {
+  e.preventDefault();
+  await fetch("http://127.0.0.1:5000/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.status === "success") {
+      localStorage.removeItem("user");
+      window.location.href = "/login";
+    } else {
+      console.error(data.message);
+    }
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+}
 
 function Navbar({ logout, setLogout, settings, setSettings }) {
   return (
@@ -30,6 +42,7 @@ function Navbar({ logout, setLogout, settings, setSettings }) {
           } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-white bg-white rounded-md p-1`}
         >
           <a
+            onClick={handleLogout}
             className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3"
             href=""
           >

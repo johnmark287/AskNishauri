@@ -14,6 +14,45 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
+
+// const [patientName, setPatientName] = useState("");
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+
+  if (!email || !password) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  await fetch("http://127.0.0.1:5000/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ email: email, password: password }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        localStorage.setItem("user", data.name);
+        localStorage.setItem("id", data.id);
+        localStorage.setItem("history", JSON.stringify(data.history));
+        window.location.href = "/home";
+      } else {
+        console.error(data.message);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+
+  console.log("Login");
+}
+
 function Login() {
   return (
     <div className="">
@@ -38,7 +77,9 @@ function Login() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full" type="submit">Login</Button>
+            <Button onClick={handleLogin} className="w-full" type="submit">
+              Login
+            </Button>
           </CardFooter>
         </Card>
       </div>

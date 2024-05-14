@@ -1,35 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Navbar from "./Navbar";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 
-function Main({ open }) {
+function Main() {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const messagesEndRef = useRef(null);
-  const closeMenuRef = useRef();
-
-  useEffect(() => {
-    function handleCloseMenuRef(event) {
-      if(!closeMenuRef.current.contains(event.target)) {
-        setSettings(false);
-        setLogout(false)
-      }
-    }
-
-    document.addEventListener('mousedown', handleCloseMenuRef);
-
-    return () => {
-      document.removeEventListener('mousedown', handleCloseMenuRef);
-    }
-  });
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView();
-  }, [messages]);
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -60,7 +39,7 @@ function Main({ open }) {
     setMessages((prevMessages) => [
       ...prevMessages,
       {
-        sender: "User",
+        sender: localStorage.getItem("user"),
         message: userInput,
         timestamp: getCurrentTimestamp(),
       },
@@ -72,7 +51,7 @@ function Main({ open }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: userInput }),
+      body: JSON.stringify({ message: userInput, history: messages}),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -86,6 +65,8 @@ function Main({ open }) {
               timestamp: getCurrentTimestamp(),
             },
           ]);
+          // localStorage.removeItem("history");
+          // localStorage.setItem("history", JSON.stringify(messages));
         } else {
           console.error("Error:", data.message);
         }
@@ -121,7 +102,6 @@ function Main({ open }) {
         settings={settings}
         setSettings={handleSettings}
         open={open}
-        closeMenuRef={closeMenuRef}
       />
 
       {/* chat container */}
@@ -133,8 +113,8 @@ function Main({ open }) {
   );
 }
 
-Main.propTypes = {
-  open: PropTypes.bool.isRequired,
-};
+// Main.propTypes = {
+// open: PropTypes.bool.isRequired,
+// };
 
 export default Main;

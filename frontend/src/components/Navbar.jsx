@@ -1,13 +1,6 @@
 import PropTypes from "prop-types";
 
-function Navbar({
-  logout,
-  setLogout,
-  settings,
-  setSettings,
-  open,
-  closeMenuRef,
-}) {
+function Navbar({ logout, setLogout, settings, setSettings, open }) {
   return (
     <div className="relative flex justify-between bg-[#fbe2ff] p-3">
       <div className="hover:cursor-pointer hover:text-white active:bg-white hover:bg-[#e0c8f6] transition duration-200 ease-in bg-[#c791fb] rounded-2xl flex justify-between">
@@ -19,7 +12,7 @@ function Navbar({
           className="my-1 mx-4 hover:text-white text-white"
           ref={closeMenuRef} {/* Not working as expected. Understanding how useRef works will help fix this. */}
         >
-          Johnmark Muhando
+          {localStorage.getItem("user")}
         </button>
         <div
           className={`${
@@ -27,7 +20,7 @@ function Navbar({
           } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-black bg-white rounded-md p-1`}
         >
           <a
-            className="hover:bg-[#c791fb] transition duration-200 ease-in rounded-md active:bg-[rgba(82,91,100,255)] p-1 md:px-3"
+            className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3"
             href=""
           >
             Log Out
@@ -133,7 +126,7 @@ function Navbar({
 Navbar.propTypes = {
   logout: PropTypes.bool.isRequired,
   setLogout: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
+  // open: PropTypes.bool.isRequired,
   setSettings: PropTypes.func.isRequired,
   settings: PropTypes.bool.isRequired,
   closeMenuRef: PropTypes.bool.isRequired,

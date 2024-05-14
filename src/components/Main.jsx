@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
@@ -9,6 +9,11 @@ function Main({ open }) {
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView();
+  }, [messages]);
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -103,7 +108,7 @@ function Main({ open }) {
       />
 
       {/* chat container */}
-      <ChatContainer messages={messages} isLoading={isLoading} />
+      <ChatContainer messages={messages} isLoading={isLoading} messagesEndRef={messagesEndRef} />
 
       {/* input */}
       <Inputbar handleInput={handleInput} handleEnterKey={handleEnterKey} />

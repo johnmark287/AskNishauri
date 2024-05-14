@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 function Navbar({ logout, setLogout, settings, setSettings, open }) {
   return (
-    <div className="relative flex justify-between bg-[#fbe2ff] p-3 te">
+    <div className="relative flex justify-between bg-[#fbe2ff] p-3">
       <div className="hover:cursor-pointer hover:text-white active:bg-white hover:bg-[#e0c8f6] transition duration-200 ease-in bg-[#c791fb] rounded-2xl flex justify-between">
         <button
           type="button"

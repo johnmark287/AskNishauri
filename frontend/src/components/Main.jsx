@@ -1,10 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 
-function Main() {
+function Main({ open }) {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -40,11 +40,20 @@ function Main() {
     return () => {
       document.removeEventListener('mousedown', handleCloseSettingsRef);
     }
-  });
 
   useEffect(() => {
+    const history = JSON.parse(localStorage.getItem("history"));
+    if (history.length > 0) {
+      setMessages(history);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("history", JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
+
+  // setMessages(JSON.parse(localStorage.getItem("history")));
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -87,7 +96,7 @@ function Main() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: userInput, history: messages}),
+      body: JSON.stringify({ message: userInput, history: messages }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -116,8 +125,8 @@ function Main() {
   }
 
   function handleEnterKey(event) {
-    if (event.key === 'Enter') {
-      handleInput()
+    if (event.key === "Enter") {
+      handleInput();
     }
   }
 
@@ -143,7 +152,11 @@ function Main() {
       />
 
       {/* chat container */}
-      <ChatContainer messages={messages} isLoading={isLoading} messagesEndRef={messagesEndRef} />
+      <ChatContainer
+        messages={messages}
+        isLoading={isLoading}
+        messagesEndRef={messagesEndRef}
+      />
 
       {/* input */}
       <Inputbar handleInput={handleInput} handleEnterKey={handleEnterKey} />
@@ -151,8 +164,8 @@ function Main() {
   );
 }
 
-// Main.propTypes = {
-// open: PropTypes.bool.isRequired,
-// };
+Main.propTypes = {
+  open: PropTypes.bool.isRequired,
+};
 
 export default Main;

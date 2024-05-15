@@ -1,6 +1,35 @@
 import PropTypes from "prop-types";
 import { MdOutlineMoreVert } from "react-icons/md";
 
+async function handleLogout(e) {
+  e.preventDefault();
+  await fetch("http://127.0.0.1:5000/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      user: localStorage.getItem("id"),
+      history: JSON.parse(localStorage.getItem("history")),
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status === "success") {
+        localStorage.removeItem("user");
+        localStorage.removeItem("id");
+        localStorage.removeItem("history");
+
+        window.location.href = "/login";
+      } else {
+        console.error(data.message);
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
 function Navbar({
   logout,
   setLogout,
@@ -30,8 +59,9 @@ function Navbar({
           } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-black bg-white rounded-md p-1`}
         >
           <a
-            className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3"
-            href=""
+            onClick={handleLogout}
+            className="hover:bg-[#c791fb] transition duration-200 ease-in rounded-md active:bg-[rgba(82,91,100,255)] p-1 md:px-3"
+            // href=""
           >
             Log Out
           </a>

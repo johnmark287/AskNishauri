@@ -17,15 +17,27 @@ function ChatContainer({ messages, isLoading, messagesEndRef }) {
         />
       ))}
       {isLoading && (
-        <div className="pl-[10px] flex items-center border border-[#25282d]  py-2 m-2 rounded-sm">
-          <div className="">
-            <div className="min-w-[160px] font-bold text-[#29f6ac]">
-              AskNishauri
-            </div>
-            <Skeleton count={1} className="h-4 w-[100%]" />
-          </div>
-          <div className="w-full p-2">
-            <Skeleton count={4} className="h-4 w-[100%]" />
+        <div className="flex justify-start">
+          {/* <div className="bg-white max-w-[75%] relative flex items-center p-2 m-2 rounded-2xl"></div> */}
+          <div className="min-w-[250px]">
+            <Skeleton
+              duration={3}
+              count={1}
+              height={2}
+              className="w-[100%] m-[1px] gap-0"
+            />
+            <Skeleton
+              duration={3}
+              count={1}
+              height={2}
+              className="w-[100%] m-[1px] gap-0"
+            />
+            <Skeleton
+              duration={3}
+              count={1}
+              height={2}
+              className="w-[100%] m-[1px]"
+            />
           </div>
         </div>
       )}

@@ -15,7 +15,7 @@ function ChatMessage({ sender, timestamp, message }) {
             : "bg-[#B273F0] text-white max-w-[75%]"
         } relative p-2 m-2 rounded-2xl`}
       >
-        <div className="text-right min-w-[80px] ">
+        <div className="text-left min-w-[80px] ">
           <span>{message}</span>
         </div>
         <div className="">

@@ -43,7 +43,7 @@ def login():
     print("Login invoked")
     data = request.get_json()
     print(f"Data: {data}")
-    email = data["email"]
+    phone = data["phone"]
     password = data["password"]
 
     # Query the database for the user
@@ -52,10 +52,10 @@ def login():
 
     
     for patient in database["patients"]:
-        if patient["patient_id"] == email and patient["contact"]["phone"] == password:
+        if patient["patient_id"] == password and patient["contact"]["phone"] == phone:
             with open("../data/chats-hist.json", "r") as file:
                 users_hist = json.load(file)
-            user_hist = users_hist.get(email, [])
+            user_hist = users_hist.get(password, [])
             print(f"User history: {user_hist}")
 
             session["user"] = patient["patient_id"]

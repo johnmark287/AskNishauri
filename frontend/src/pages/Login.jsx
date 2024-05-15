@@ -19,11 +19,11 @@ import { Label } from "frontend/src/components/ui/label";
 
 async function handleLogin(e) {
   e.preventDefault();
-  const email = document.getElementById("email").value;
+  const phone = document.getElementById("phone").value;
   const password = document.getElementById("password").value;
 
 
-  if (!email || !password) {
+  if (!phone || !password) {
     alert("Please fill all fields");
     return;
   }
@@ -33,7 +33,7 @@ async function handleLogin(e) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email: email, password: password }),
+    body: JSON.stringify({ phone: phone, password: password }),
   })
     .then((response) => response.json())
     .then((data) => {

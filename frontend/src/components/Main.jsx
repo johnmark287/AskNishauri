@@ -20,7 +20,6 @@ function Main({ open }) {
         console.log("sedrfasf");
       }
     }
-
     document.addEventListener('mousedown', handleCloseLogoutRef);
 
     return () => {
@@ -41,6 +40,11 @@ function Main({ open }) {
       document.removeEventListener('mousedown', handleCloseSettingsRef);
     }
 
+
+  // useEffect(() => {
+  //   messagesEndRef.current?.scrollIntoView();
+  // }, [messages]);
+
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("history"));
     if (history.length > 0) {
@@ -52,6 +56,7 @@ function Main({ open }) {
     localStorage.setItem("history", JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
+
 
   // setMessages(JSON.parse(localStorage.getItem("history")));
 

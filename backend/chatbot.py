@@ -5,7 +5,7 @@ Chatbot logic and functionality
 import argparse
 import os
 import json
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, session
 from flask_cors import CORS
 from dotenv import load_dotenv
 from langchain.prompts import ChatPromptTemplate
@@ -13,26 +13,76 @@ from langchain_community.vectorstores.chroma import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 
+
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+app.secret_key = "es"
+
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
 CHROMA_DB_PATH = "../database/chroma"
 PROMPT_TEMPLATE = """
+INSTRUCTIONS:
+If the QUESTION is a greeting, ignore the DOCUMENT and respond with a greeting.
+Answer the users QUESTION using the DOCUMENT text above.
+Keep your answer ground in the facts of the DOCUMENT.
+When answering, always use a formal doctor's tone.
+Avoid using the phrase "according to the document" in your response.
+
 DOCUMENT:
 {context}
 
 QUESTION:
 {question}
 
-INSTRUCTIONS:
-Answer the users QUESTION using the DOCUMENT text above.
-Keep your answer ground in the facts of the DOCUMENT.
-When answering, always use a formal doctor's tone.
-Avoid using the phrase "according to the document" instead use "from your records"
-If the DOCUMENT doesn't contain the facts to answer the QUESTION return NONE
 """
+
+@app.route("/login", methods=["POST"])
+def login():
+    print("Login invoked")
+    data = request.get_json()
+    print(f"Data: {data}")
+    email = data["email"]
+    password = data["password"]
+
+    # Query the database for the user
+    with open("../data/testData.json", "r") as file:
+        database = json.load(file)
+
+    
+    for patient in database["patients"]:
+        if patient["patient_id"] == email and patient["contact"]["phone"] == password:
+            with open("../data/chats-hist.json", "r") as file:
+                users_hist = json.load(file)
+            user_hist = users_hist.get(email, [])
+            print(f"User history: {user_hist}")
+
+            session["user"] = patient["patient_id"]
+            return jsonify({"id":patient["patient_id"],"name": patient["name"], "history": user_hist ,"status": "success"})
+        else:
+            return jsonify({"message": "Login failed", "status": "error"})
+
+    return jsonify({"message": "Login failed, Patient does not exist", "status": "error"})
+
+
+@app.route("/logout", methods=["POST"])
+def logout():
+    data = request.get_json()
+    user = data["user"]
+    history = data["history"]
+    print(f"User: {data}")
+
+    # Save the history to a json file with user as key
+    with open("../data/chats-hist.json", "r") as file:
+        users_hist = json.load(file)
+    users_hist[user] = history
+    with open("../data/chats-hist.json", "w") as file:
+        json.dump(users_hist, file)
+
+    session.pop("user", None)
+    return jsonify({"message": "User logged out", "status": "success"})
+
 
 @app.route("/chatbot", methods=["POST"])
 def chatbot():
@@ -41,17 +91,18 @@ def chatbot():
     print(f"Data: {data}")
     query_text = data["message"]
 
+
     embedding_function = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001", google_api_key=api_key
     )
     db = Chroma(persist_directory=CHROMA_DB_PATH, embedding_function=embedding_function)
 
     results = db.similarity_search_with_relevance_scores(query_text, k=5)
-    print(f"Results: {results}")
+    # print(f"Results: {results}")
 
     if len(results) == 0 or results[0][1] < 0.5:
         print("No results found")
-        return
+    
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
@@ -77,8 +128,6 @@ def chatbot():
             # .replace("'", " ")
             # .strip()
         )
-
-
 
 
 def main():

@@ -26,5 +26,6 @@ dist-ssr
 data
 database
 .env
-venv
-env
+
+env/
+venv/

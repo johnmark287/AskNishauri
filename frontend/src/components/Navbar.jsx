@@ -22,7 +22,7 @@ function Navbar({
           className="my-1 mx-4 hover:text-white text-white"
           ref={closeLogoutRef}
         >
-          Johnmark Muhando
+          {localStorage.getItem("user")}
         </button>
         <div
           className={`${
@@ -30,7 +30,7 @@ function Navbar({
           } shadow-sm shadow-white absolute left-[96px] top-[47px] z-40 text-black hover:text-black bg-white rounded-md p-1`}
         >
           <a
-            className="hover:bg-[#c791fb] transition duration-200 ease-in rounded-md active:bg-[rgba(82,91,100,255)] p-1 md:px-3"
+            className="hover:bg-[rgba(35,38,43,255)] hover:rounded-md p-1 md:px-3"
             href=""
           >
             Log Out

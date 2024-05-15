@@ -22,6 +22,7 @@ function Main({ open }) {
 
   useEffect(() => {
     localStorage.setItem("history", JSON.stringify(messages));
+    messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
   useEffect(() => {
@@ -39,9 +40,9 @@ function Main({ open }) {
     };
   });
 
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView();
-  }, [messages]);
+  // useEffect(() => {
+  //   messagesEndRef.current?.scrollIntoView();
+  // }, [messages]);
 
   // setMessages(JSON.parse(localStorage.getItem("history")));
 

@@ -16,7 +16,7 @@ from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 
 
 DATA_PATH = "data"
-CHROMA_DB_PATH = "database/chroma"
+CHROMA_DB_PATH = "../database/chroma"
 MAX_CHUNK_SIZE = 1500
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")

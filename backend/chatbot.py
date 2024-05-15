@@ -18,7 +18,7 @@ CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 load_dotenv()
 api_key = os.getenv("GOOGLE_API_KEY")
 
-CHROMA_DB_PATH = "database/chroma"
+CHROMA_DB_PATH = "../database/chroma"
 PROMPT_TEMPLATE = """
 DOCUMENT:
 {context}

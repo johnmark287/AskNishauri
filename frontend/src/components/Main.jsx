@@ -17,6 +17,7 @@ function Main({ open }) {
     function handleCloseLogoutRef(event) {
       if (!closeLogoutRef.current.contains(event.target)) {
         setLogout(false);
+        console.log("sedrfasf");
       }
     }
 

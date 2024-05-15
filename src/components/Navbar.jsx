@@ -6,7 +6,8 @@ function Navbar({
   settings,
   setSettings,
   open,
-  closeMenuRef,
+  closeSettingsRef,
+  closeLogoutRef,
 }) {
   return (
     <div className="relative flex justify-between bg-[#fbe2ff] p-3">
@@ -17,7 +18,7 @@ function Navbar({
             setLogout();
           }}
           className="my-1 mx-4 hover:text-white text-white"
-          ref={closeMenuRef} {/* Not working as expected. Understanding how useRef works will help fix this. */}
+          ref={closeLogoutRef}
         >
           Johnmark Muhando
         </button>
@@ -63,7 +64,7 @@ function Navbar({
               setSettings();
             }}
             className="active:bg-[rgba(82,91,100,255)] hover:bg-[#e0c8f6] bg-[#c791fb] p-1 rounded-md "
-            ref={closeMenuRef} {/* Not working as expected. Understanding how useRef works will help fix this. */}
+            ref={closeSettingsRef}
           >
             <svg
               className={` fill-current hover:fill-white text-white`}
@@ -136,7 +137,8 @@ Navbar.propTypes = {
   open: PropTypes.bool.isRequired,
   setSettings: PropTypes.func.isRequired,
   settings: PropTypes.bool.isRequired,
-  closeMenuRef: PropTypes.bool.isRequired,
+  closeSettingsRef: PropTypes.bool.isRequired,
+  closeLogoutRef: PropTypes.bool.isRequired,
 };
 
 export default Navbar;

@@ -10,20 +10,34 @@ function Main({ open }) {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const closeMenuRef = useRef();
+  const closeSettingsRef = useRef();
+  const closeLogoutRef = useRef();
 
   useEffect(() => {
-    function handleCloseMenuRef(event) {
-      if(!closeMenuRef.current.contains(event.target)) {
-        setSettings(false);
-        setLogout(false)
+    function handleCloseLogoutRef(event) {
+      if (!closeLogoutRef.current.contains(event.target)) {
+        setLogout(false);
       }
     }
 
-    document.addEventListener('mousedown', handleCloseMenuRef);
+    document.addEventListener('mousedown', handleCloseLogoutRef);
 
     return () => {
-      document.removeEventListener('mousedown', handleCloseMenuRef);
+      document.removeEventListener('mousedown', handleCloseLogoutRef);
+    }
+  })
+
+  useEffect(() => {
+    function handleCloseSettingsRef(event) {
+      if(!closeSettingsRef.current.contains(event.target)) {
+        setSettings(false);
+      }
+    }
+
+    document.addEventListener('mousedown', handleCloseSettingsRef);
+
+    return () => {
+      document.removeEventListener('mousedown', handleCloseSettingsRef);
     }
   });
 
@@ -121,7 +135,8 @@ function Main({ open }) {
         settings={settings}
         setSettings={handleSettings}
         open={open}
-        closeMenuRef={closeMenuRef}
+        closeSettingsRef={closeSettingsRef}
+        closeLogoutRef={closeLogoutRef}
       />
 
       {/* chat container */}

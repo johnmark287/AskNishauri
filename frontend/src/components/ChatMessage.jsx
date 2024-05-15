@@ -1,5 +1,5 @@
 // import React from 'react'
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 function ChatMessage({ sender, timestamp, message }) {
   return (
@@ -37,4 +37,4 @@ ChatMessage.propTypes = {
   message: PropTypes.string.isRequired,
 };
 
-export default ChatMessage;
+export default ChatMessage

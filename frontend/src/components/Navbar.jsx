@@ -49,7 +49,7 @@ function Navbar({
           ref={closeMenuRef}
           // {/* Not working as expected. Understanding how useRef works will help fix this. */}
         >
-          Johnmark Muhando
+          {localStorage.getItem("user")}
         </button>
         <div
           className={`${

@@ -19,7 +19,7 @@ import { Label } from "@/components/ui/label";
 
 async function handleLogin(e) {
   e.preventDefault();
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("phone").value;
   const password = document.getElementById("password").value;
 
 

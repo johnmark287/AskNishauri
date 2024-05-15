@@ -10,7 +10,8 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
             setLogout();
           }}
           className="my-1 mx-4 hover:text-white text-white"
-          ref={closeMenuRef} {/* Not working as expected. Understanding how useRef works will help fix this. */}
+          ref={closeMenuRef}
+          //{/* Not working as expected. Understanding how useRef works will help fix this. */}
         >
           {localStorage.getItem("user")}
         </button>
@@ -56,7 +57,7 @@ function Navbar({ logout, setLogout, settings, setSettings, open }) {
               setSettings();
             }}
             className="active:bg-[rgba(82,91,100,255)] hover:bg-[#e0c8f6] bg-[#c791fb] p-1 rounded-md "
-            ref={closeMenuRef} {/* Not working as expected. Understanding how useRef works will help fix this. */}
+            ref={closeMenuRef} //{/* Not working as expected. Understanding how useRef works will help fix this. */}
           >
             <svg
               className={` fill-current hover:fill-white text-white`}

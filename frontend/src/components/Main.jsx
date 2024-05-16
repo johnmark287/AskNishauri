@@ -39,6 +39,7 @@ function Main({ open }) {
     return () => {
       document.removeEventListener('mousedown', handleCloseSettingsRef);
     }
+  })
 
 
   // useEffect(() => {

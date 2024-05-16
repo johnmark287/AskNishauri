@@ -2,7 +2,7 @@
   Password
 */
 
-import { Button } from "frontend/src/components/ui/button";
+import { Button } from "../components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,9 +10,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "frontend/src/components/ui/card";
-import { Input } from "frontend/src/components/ui/input";
-import { Label } from "frontend/src/components/ui/label";
+} from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
 
 
 // const [patientName, setPatientName] = useState("");

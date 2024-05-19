@@ -14,11 +14,14 @@ import {
 } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
+import { useState } from "react";
 
 // const [patientName, setPatientName] = useState("");
 
 function Login() {
   const navigate = useNavigate();
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -73,18 +76,30 @@ function Login() {
                   name="phone"
                   pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
                   placeholder="07********"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
             </div>
             <div className="grid gap-2">
               <div className="flex flex-col items-start space-y-2 my-[10px]">
                 <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" />
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </div>
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={handleLogin} className="w-full" type="submit">
+            <Button
+              onClick={handleLogin}
+              className="w-full bg-[#c791fb] hover:bg-[#B273F0]"
+              type="submit"
+              disabled={!phone || !password }
+            >
               Login
             </Button>
           </CardFooter>

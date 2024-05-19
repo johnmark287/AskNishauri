@@ -19,27 +19,26 @@ function Main() {
         setLogout(false);
       }
     }
-    document.addEventListener('mousedown', handleCloseLogoutRef);
+    document.addEventListener("mousedown", handleCloseLogoutRef);
 
     return () => {
-      document.removeEventListener('mousedown', handleCloseLogoutRef);
-    }
-  })
+      document.removeEventListener("mousedown", handleCloseLogoutRef);
+    };
+  });
 
   useEffect(() => {
     function handleCloseSettingsRef(event) {
-      if(!closeSettingsRef.current.contains(event.target)) {
+      if (!closeSettingsRef.current.contains(event.target)) {
         setSettings(false);
       }
     }
 
-    document.addEventListener('mousedown', handleCloseSettingsRef);
+    document.addEventListener("mousedown", handleCloseSettingsRef);
 
     return () => {
-      document.removeEventListener('mousedown', handleCloseSettingsRef);
-    }
-  })
-
+      document.removeEventListener("mousedown", handleCloseSettingsRef);
+    };
+  });
 
   // useEffect(() => {
   //   messagesEndRef.current?.scrollIntoView();
@@ -56,7 +55,6 @@ function Main() {
     localStorage.setItem("history", JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
-
 
   // setMessages(JSON.parse(localStorage.getItem("history")));
 
@@ -114,7 +112,7 @@ function Main() {
           setMessages((prevMessages) => [
             ...prevMessages,
             {
-              sender: "AskNishauri",
+              sender: "Nishauri",
               message: data.message,
               timestamp: getCurrentTimestamp(),
             },

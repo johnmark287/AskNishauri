@@ -81,7 +81,7 @@ function Navbar({
         </button> */}
       </div>
       {/* <div className="hidden md:block font-black translate-y-1 scale-y-150 scale-x-150">
-        Chat with AskNishauri
+        Chat with Nishauri
       </div> */}
       {/* <div className="flex justify-between"> */}
       {/* <button

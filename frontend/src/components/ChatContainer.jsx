@@ -55,7 +55,10 @@ ChatContainer.propTypes = {
     })
   ).isRequired,
   isLoading: PropTypes.bool.isRequired,
-  messagesEndRef: PropTypes.bool.isRequired,
+  messagesEndRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.any }),
+  ]).isRequired
 };
 
 export default ChatContainer;

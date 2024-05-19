@@ -1,45 +1,45 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 
-function Main({ open }) {
+function Main() {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const closeSettingsRef = useRef();
-  const closeLogoutRef = useRef();
+  // const closeSettingsRef = useRef();
+  // const closeLogoutRef = useRef();
 
-  useEffect(() => {
-    function handleCloseLogoutRef(event) {
-      if (!closeLogoutRef.current.contains(event.target)) {
-        setLogout(false);
-        console.log("sedrfasf");
-      }
-    }
-    document.addEventListener('mousedown', handleCloseLogoutRef);
+  // useEffect(() => {
+  //   function handleCloseLogoutRef(event) {
+  //     if (!closeLogoutRef.current.contains(event.target)) {
+  //       setLogout(false);
+  //       console.log("sedrfasf");
+  //     }
+  //   }
+  //   document.addEventListener('mousedown', handleCloseLogoutRef);
 
-    return () => {
-      document.removeEventListener('mousedown', handleCloseLogoutRef);
-    }
-  })
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleCloseLogoutRef);
+  //   }
+  // })
 
-  useEffect(() => {
-    function handleCloseSettingsRef(event) {
-      if(!closeSettingsRef.current.contains(event.target)) {
-        setSettings(false);
-      }
-    }
+  // useEffect(() => {
+  //   function handleCloseSettingsRef(event) {
+  //     if(!closeSettingsRef.current.contains(event.target)) {
+  //       setSettings(false);
+  //     }
+  //   }
 
-    document.addEventListener('mousedown', handleCloseSettingsRef);
+  //   document.addEventListener('mousedown', handleCloseSettingsRef);
 
-    return () => {
-      document.removeEventListener('mousedown', handleCloseSettingsRef);
-    }
-  })
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleCloseSettingsRef);
+  //   }
+  // })
 
 
   // useEffect(() => {
@@ -153,8 +153,8 @@ function Main({ open }) {
         settings={settings}
         setSettings={handleSettings}
         open={open}
-        closeSettingsRef={closeSettingsRef}
-        closeLogoutRef={closeLogoutRef}
+        // closeSettingsRef={closeSettingsRef}
+        // closeLogoutRef={closeLogoutRef}
       />
 
       {/* chat container */}
@@ -170,8 +170,8 @@ function Main({ open }) {
   );
 }
 
-Main.propTypes = {
-  open: PropTypes.bool.isRequired,
-};
+// Main.propTypes = {
+//   open: PropTypes.bool.isRequired,
+// };
 
 export default Main;

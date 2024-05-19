@@ -1,45 +1,50 @@
 import PropTypes from "prop-types";
 import { MdOutlineMoreVert } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
 
-async function handleLogout(e) {
-  e.preventDefault();
-  await fetch("http://127.0.0.1:5000/logout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      user: localStorage.getItem("id"),
-      history: JSON.parse(localStorage.getItem("history")),
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.status === "success") {
-        localStorage.removeItem("user");
-        localStorage.removeItem("id");
-        localStorage.removeItem("history");
 
-        window.location.href = "/login";
-      } else {
-        console.error(data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
 
 function Navbar({
   logout,
   setLogout,
   settings,
   setSettings,
-  open,
-  closeSettingsRef,
-  closeLogoutRef,
-  settingsId
+  // open,
+  // closeSettingsRef,
+  // closeLogoutRef,
+  // settingsId
 }) {
+
+  const navigate = useNavigate();
+
+  async function handleLogout(e) {
+    e.preventDefault();
+    await fetch("http://127.0.0.1:5000/logout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: localStorage.getItem("id"),
+        history: JSON.parse(localStorage.getItem("history")),
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          localStorage.removeItem("user");
+          localStorage.removeItem("id");
+          localStorage.removeItem("history");
+          navigate("/login")
+        } else {
+          console.error(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
+
   return (
     <div className="relative flex justify-between bg-[#fbe2ff] p-3">
       <div className="hover:cursor-pointer hover:text-white active:bg-white hover:bg-[#e0c8f6] transition duration-200 ease-in bg-[#c791fb] rounded-2xl flex justify-between">
@@ -49,7 +54,7 @@ function Navbar({
             setLogout();
           }}
           className="my-1 mx-4 hover:text-white text-white"
-          ref={closeLogoutRef}
+          // ref={closeLogoutRef}
         >
           {localStorage.getItem("user")}
         </button>
@@ -96,7 +101,7 @@ function Navbar({
               setSettings();
             }}
             className="active:bg-[rgba(82,91,100,255)] hover:bg-[#e0c8f6] bg-[#c791fb] p-1 rounded-md "
-            ref={closeSettingsRef}
+            // ref={closeSettingsRef}
           >
             {/* <svg
               className={` fill-current hover:fill-white text-white`}
@@ -114,7 +119,7 @@ function Navbar({
             className={`${
               settings ? "block" : "hidden"
             } shadow-sm shadow-white bg-white rounded-md absolute right-[40px] z-50 top-[47px]`}
-            id={settingsId}
+            // id={settingsId}
           >
             <a
               className="hover:bg-[#c791fb] transition duration-200 ease-in block hover:text-white active:bg-[rgba(82,91,100,255)] rounded-md m-1 p-1"
@@ -168,12 +173,12 @@ function Navbar({
 Navbar.propTypes = {
   logout: PropTypes.bool.isRequired,
   setLogout: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
+  // open: PropTypes.bool.isRequired,
   setSettings: PropTypes.func.isRequired,
   settings: PropTypes.bool.isRequired,
-  closeSettingsRef: PropTypes.bool.isRequired,
-  closeLogoutRef: PropTypes.bool.isRequired,
-  settingsId: PropTypes.bool.isRequired,
+  // closeSettingsRef: PropTypes.bool.isRequired,
+  // closeLogoutRef: PropTypes.bool.isRequired,
+  // settingsId: PropTypes.bool.isRequired,
 };
 
 export default Navbar;

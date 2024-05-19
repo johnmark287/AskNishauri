@@ -2,6 +2,7 @@
   Password
 */
 
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import {
   Card,
@@ -17,43 +18,48 @@ import { Label } from "../components/ui/label";
 
 // const [patientName, setPatientName] = useState("");
 
-async function handleLogin(e) {
-  e.preventDefault();
-  const phone = document.getElementById("phone").value;
-  const password = document.getElementById("password").value;
-
-
-  if (!phone || !password) {
-    alert("Please fill all fields");
-    return;
-  }
-
-  await fetch("http://127.0.0.1:5000/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ phone: phone, password: password }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.status === "success") {
-        localStorage.setItem("user", data.name);
-        localStorage.setItem("id", data.id);
-        localStorage.setItem("history", JSON.stringify(data.history));
-        window.location.href = "/home";
-      } else {
-        console.error(data.message);
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-
-  console.log("Login");
-}
 
 function Login() {
+
+  const navigate = useNavigate()
+
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const phone = document.getElementById("phone").value;
+    const password = document.getElementById("password").value;
+  
+  
+    if (!phone || !password) {
+      alert("Please fill all fields");
+      return;
+    }
+  
+    await fetch("http://127.0.0.1:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phone: phone, password: password }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status === "success") {
+          localStorage.setItem("user", data.name);
+          localStorage.setItem("id", data.id);
+          localStorage.setItem("history", JSON.stringify(data.history));
+          navigate("/home", { replace: true});
+        } else {
+          console.error(data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  
+    console.log("Login");
+  }
+
   return (
     <div className="">
       <div className="bg-gradient-to-b from-[#fbe2ff] to-white h-screen flex justify-center items-center">

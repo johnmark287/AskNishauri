@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import Navbar from "./Navbar";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 
-function Main({ open }) {
+function Main() {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -17,29 +17,28 @@ function Main({ open }) {
     function handleCloseLogoutRef(event) {
       if (!closeLogoutRef.current.contains(event.target)) {
         setLogout(false);
-        console.log("sedrfasf");
       }
     }
-    document.addEventListener('mousedown', handleCloseLogoutRef);
+    document.addEventListener("mousedown", handleCloseLogoutRef);
 
     return () => {
-      document.removeEventListener('mousedown', handleCloseLogoutRef);
-    }
-  })
+      document.removeEventListener("mousedown", handleCloseLogoutRef);
+    };
+  });
 
   useEffect(() => {
     function handleCloseSettingsRef(event) {
-      if(!closeSettingsRef.current.contains(event.target)) {
+      if (!closeSettingsRef.current.contains(event.target)) {
         setSettings(false);
       }
     }
 
-    document.addEventListener('mousedown', handleCloseSettingsRef);
+    document.addEventListener("mousedown", handleCloseSettingsRef);
 
     return () => {
-      document.removeEventListener('mousedown', handleCloseSettingsRef);
-    }
-
+      document.removeEventListener("mousedown", handleCloseSettingsRef);
+    };
+  });
 
   // useEffect(() => {
   //   messagesEndRef.current?.scrollIntoView();
@@ -56,7 +55,6 @@ function Main({ open }) {
     localStorage.setItem("history", JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
-
 
   // setMessages(JSON.parse(localStorage.getItem("history")));
 
@@ -84,6 +82,10 @@ function Main({ open }) {
 
   async function handleInput() {
     const userInput = document.getElementById("input").value;
+    if (userInput === "") {
+      console.log("Empty input");
+      return;
+    }
     document.getElementById("input").value = "";
 
     setMessages((prevMessages) => [
@@ -110,7 +112,7 @@ function Main({ open }) {
           setMessages((prevMessages) => [
             ...prevMessages,
             {
-              sender: "AskNishauri",
+              sender: "Nishauri",
               message: data.message,
               timestamp: getCurrentTimestamp(),
             },
@@ -169,8 +171,8 @@ function Main({ open }) {
   );
 }
 
-Main.propTypes = {
-  open: PropTypes.bool.isRequired,
-};
+// Main.propTypes = {
+//   open: PropTypes.bool.isRequired,
+// };
 
 export default Main;

@@ -1,15 +1,27 @@
 import PropTypes from "prop-types";
+import { useState } from "react";
+
 
 function Inputbar({ handleInput, handleEnterKey }) {
+  const [sendButton, setSendButton] = useState(false);
+  function handleChange(e) {
+    if (e.target.value.length > 0) {
+      setSendButton(true);
+    } else {
+      setSendButton(false);
+    }
+  }
+
   return (
     <div className="text-white flex justify-center items-center h-[80px] md:h-[100px] lg:h-[120] bg-gradient-to-t from-[#fbe2ff] to-white ">
       <div className="absolute bg-[#ffffff] w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] rounded-3xl p-2 border-[2.5px] border-[#fbe2ff]">
         <input
           className="ml-3 relative outline-none bg-transparent text-black w-[95%]"
+          onChange={handleChange}
           type="textarea"
           name="input"
           id="input"
-          placeholder="AskNishauri..."
+          placeholder="Ask Nishauri..."
           onKeyDown={handleEnterKey}
         />
         {/* <button
@@ -30,15 +42,17 @@ function Inputbar({ handleInput, handleEnterKey }) {
         <button
           type="submit"
           onClick={handleInput}
-          className="rounded-2xl absolute bottom-[5px] active:bg-[#c791fb] right-2 p-[3px] bg-transparent hover:bg-[#e0c8f6]"
+          className={`rounded-2xl absolute bottom-[3px] right-2 p-[3px] bg-transparent ${
+            sendButton ? "hover:bg-[#e0c8f6]" : " "
+          }`}
         >
           <svg
-            className="fill-current  text-black hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
+            // className="fill-current  text-black hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"
             xmlns="http://www.w3.org/2000/svg"
             height="24px"
             viewBox="0 -960 960 960"
             width="24px"
-            fill="#e8eaed"
+            fill={`${sendButton ? "#c791fb" : "#e8eaed"}`}
           >
             <path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z" />
           </svg>

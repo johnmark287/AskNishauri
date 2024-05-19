@@ -10,7 +10,7 @@ function Main() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  // const closeSettingsRef = useRef();
+  const closeSettingsRef = useRef();
   const closeLogoutRef = useRef();
 
   useEffect(() => {
@@ -26,19 +26,19 @@ function Main() {
     }
   })
 
-  // useEffect(() => {
-  //   function handleCloseSettingsRef(event) {
-  //     if(!closeSettingsRef.current.contains(event.target)) {
-  //       setSettings(false);
-  //     }
-  //   }
+  useEffect(() => {
+    function handleCloseSettingsRef(event) {
+      if(!closeSettingsRef.current.contains(event.target)) {
+        setSettings(false);
+      }
+    }
 
-  //   document.addEventListener('mousedown', handleCloseSettingsRef);
+    document.addEventListener('mousedown', handleCloseSettingsRef);
 
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleCloseSettingsRef);
-  //   }
-  // })
+    return () => {
+      document.removeEventListener('mousedown', handleCloseSettingsRef);
+    }
+  })
 
 
   // useEffect(() => {
@@ -152,7 +152,7 @@ function Main() {
         settings={settings}
         setSettings={handleSettings}
         open={open}
-        // closeSettingsRef={closeSettingsRef}
+        closeSettingsRef={closeSettingsRef}
         closeLogoutRef={closeLogoutRef}
       />
 

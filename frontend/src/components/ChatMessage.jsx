@@ -11,9 +11,9 @@ function ChatMessage({ sender, timestamp, message }) {
       <div
         className={`${
           sender === "Nishauri"
-            ? "border border-[#B273F0] text-black max-w-[75%]"
-            : "bg-[#B273F0] text-white max-w-[75%]"
-        } relative p-2 m-2 rounded-2xl`}
+            ? "border border-[#B273F0] text-black max-w-[75%] rounded-bl-none"
+            : "bg-[#B273F0] text-white max-w-[75%] rounded-br-none"
+        } relative p-2 m-2 rounded-2xl `}
       >
         <div className="text-left min-w-[80px] ">
           <span>{message}</span>

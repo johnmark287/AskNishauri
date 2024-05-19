@@ -84,6 +84,10 @@ function Main() {
 
   async function handleInput() {
     const userInput = document.getElementById("input").value;
+    if (userInput === "") {
+      console.log("Empty input");
+      return;
+    }
     document.getElementById("input").value = "";
 
     setMessages((prevMessages) => [

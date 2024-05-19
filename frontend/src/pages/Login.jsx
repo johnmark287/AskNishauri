@@ -27,6 +27,7 @@ function Login() {
     e.preventDefault();
     const phone = document.getElementById("phone").value;
     const password = document.getElementById("password").value;
+    console.log(phone, password);
 
     if (!phone || !password) {
       alert("Please fill all fields");
@@ -45,6 +46,7 @@ function Login() {
         if (data.status === "success") {
           localStorage.setItem("user", data.name);
           localStorage.setItem("id", data.id);
+          localStorage.setItem("details", JSON.stringify(data.details));
           localStorage.setItem("history", JSON.stringify(data.history));
           navigate("/home", { replace: true });
         } else {

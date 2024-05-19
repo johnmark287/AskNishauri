@@ -103,7 +103,11 @@ function Main() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: userInput, history: messages }),
+      body: JSON.stringify({
+        message: userInput,
+        details: JSON.parse(localStorage.getItem("details")),
+        history: messages,
+      }),
     })
       .then((response) => response.json())
       .then((data) => {

@@ -11,7 +11,7 @@ function ChatMessage({ sender, timestamp, message }) {
       <div
         className={`${
           sender === "Nishauri"
-            ? "bg-white text-black max-w-[75%]"
+            ? "border border-[#B273F0] text-black max-w-[75%]"
             : "bg-[#B273F0] text-white max-w-[75%]"
         } relative p-2 m-2 rounded-2xl`}
       >
@@ -20,7 +20,7 @@ function ChatMessage({ sender, timestamp, message }) {
         </div>
         <div className="">
           {/* <div className={`hidden  min-w-[160px] font-bold ${sender === "Nishauri" ? "text-[#29f6ac]" : "text-[#5aa2e0]" }`}>{sender}</div> */}
-          <div className="absolute -bottom-4 right-2 text-black text-[10px]">
+          <div className={`absolute -bottom-4 text-black text-[10px] ${sender === "Nishauri"? "left-2" : "right-2"}`}>
             {timestamp}
           </div>
         </div>

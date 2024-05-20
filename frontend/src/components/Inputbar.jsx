@@ -16,7 +16,7 @@ function Inputbar({ handleInput, handleEnterKey }) {
     <div className="text-white flex justify-center items-center h-[80px] md:h-[100px] lg:h-[120] bg-gradient-to-t from-[#fbe2ff] to-white ">
       <div className="absolute bg-[#ffffff] w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] rounded-3xl p-2 border-[2.5px] border-[#fbe2ff]">
         <input
-          className="ml-3 relative outline-none bg-transparent text-black w-[95%]"
+          className="relative pr-[9%] sm:pr-[7%] md:pr-[6%] lg:pr-[4%] pl-3 outline-none bg-transparent text-black w-full"
           onChange={handleChange}
           type="textarea"
           name="input"

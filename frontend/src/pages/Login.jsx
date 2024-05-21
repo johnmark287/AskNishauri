@@ -14,7 +14,7 @@ import {
 } from "../components/ui/card";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // const [patientName, setPatientName] = useState("");
 
@@ -22,6 +22,17 @@ function Login() {
   const navigate = useNavigate();
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    const id = localStorage.getItem("id");
+    const details = localStorage.getItem("details");
+    const history = localStorage.getItem("history");
+
+    if (user && id && details && history) {
+      navigate("/home", { replace: true });
+    }
+  });
 
   async function handleLogin(e) {
     e.preventDefault();
@@ -100,7 +111,7 @@ function Login() {
               onClick={handleLogin}
               className="w-full bg-[#c791fb] hover:bg-[#B273F0]"
               type="submit"
-              disabled={!phone || !password }
+              disabled={!phone || !password}
             >
               Login
             </Button>

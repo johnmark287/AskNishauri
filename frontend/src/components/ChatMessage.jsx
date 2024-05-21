@@ -1,7 +1,34 @@
 // import React from 'react'
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
+
+function formatText(input) {
+  let lines = input.split("\n");
+  let formattedLines = [];
+  let sentenceCount = 0;
+
+  lines.forEach((line) => {
+    // Process bold formatting
+    line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+    // Split line by `* ` and process each segment
+    let segments = line.split("* ").filter((segment) => segment.trim() !== "");
+
+    segments.forEach((segment) => {
+      sentenceCount++;
+      formattedLines.push(`${sentenceCount}. ${segment.trim()}`);
+    });
+
+    // Add a new line for clarity between original lines
+    formattedLines.push("");
+  });
+
+  // Join the processed lines back into a single string
+  return formattedLines.join("\n").trim();
+}
 
 function ChatMessage({ sender, timestamp, message }) {
+  const formattedMessage = formatText(message);
+
   return (
     <div
       className={`${
@@ -16,16 +43,17 @@ function ChatMessage({ sender, timestamp, message }) {
         } relative p-2 m-2 rounded-2xl `}
       >
         <div className="text-left min-w-[80px] ">
-          <span>{message}</span>
+          <span dangerouslySetInnerHTML={{ __html: formattedMessage }} />
         </div>
         <div className="">
-          {/* <div className={`hidden  min-w-[160px] font-bold ${sender === "Nishauri" ? "text-[#29f6ac]" : "text-[#5aa2e0]" }`}>{sender}</div> */}
-          <div className={`absolute -bottom-4 text-black text-[10px] ${sender === "Nishauri"? "left-2" : "right-2"}`}>
+          <div
+            className={`absolute -bottom-4 text-black text-[10px] ${
+              sender === "Nishauri" ? "left-2" : "right-2"
+            }`}
+          >
             {timestamp}
           </div>
         </div>
-        {/* <div className={` ${sender === "Nishauri" ? "absolute rounded-full h-[20px] w-[20px] bottom-2 left-[-9px] z-1 bg-white" : "absolute rounded-full h-[20px] w-[20px] bottom-2 right-[-9px] z-1 bg-[#B273F0]"}`}></div>
-        <div className={` ${sender === "Nishauri" ? "absolute rounded-full h-[20px] w-[20px] bottom-3 left-[-19.1px] z-0 bg-gradient-to-b from-[#fbe2ff] to-white" : "absolute rounded-full h-[20px] w-[20px] bottom-3 right-[-19.1px] z-0 bg-[#fbe2ff]"}`}></div> */}
       </div>
     </div>
   );
@@ -37,4 +65,4 @@ ChatMessage.propTypes = {
   message: PropTypes.string.isRequired,
 };
 
-export default ChatMessage
+export default ChatMessage;

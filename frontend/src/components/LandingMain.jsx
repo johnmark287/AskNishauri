@@ -1,41 +1,49 @@
 function LandingMain() {
   return (
     <div className="h-screen">
-      <div className="w-full flex items-center bg-gradient-to-r from-[rgba(62,105,236,255)] to-white h-[500px]">
-        <img
-          className="h-[250px] rounded-md m-2"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhZGuwvPRiep4izTj5i0uMzkWLioN-9Fzi6A&s"
-          alt="Kenyan Health Workers"
-        />
-        <div className="flex justify-center ">
-          <div className="">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Autem,
-            quis! Necessitatibus libero quas deserunt voluptas. Illum
-            exercitationem deleniti repudiandae natus autem nulla, nam quidem
-            corporis eum quas voluptate quasi laboriosam voluptatum, pariatur
-            dolorem odio minus aliquam maiores ratione tempore ducimus
-            perspiciatis. Sapiente, officiis laborum voluptate recusandae id
-            iusto dolorem eligendi.
-          </div>
+      <div className="flex items-center bg-fixed h-[500px] bg-[url('https://media.istockphoto.com/id/1369661892/photo/businessman-holding-virtual-blue-plus-sign-for-positive-thinking-mindset-or-healthcare.jpg?s=1024x1024&w=is&k=20&c=FgDQFVxOxGgIAn_qepPPf53BypFr3KfQTkHwId1KpA8=')]">
+        <div className="">
+          <h1 className="">User Data</h1>
+          <p className="text-white w-[50%]">
+            Using the User's health data trends to make recommendations for
+            lifestyle changes, medication adjustments or preventive measures
+          </p>
         </div>
       </div>
-      <div className="bg-gradient-to-b from-[rgba(62,105,236,255)] to-white h-[500px]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque eaque
-        accusamus officiis deleniti harum beatae deserunt in, tempora tempore,
-        quam expedita earum quibusdam commodi aut, corrupti magni ut suscipit
-        consectetur.
+      <div className="relative bg-gradient-to-b from-[rgba(62,105,236,255)] to-white h-[250px]">
+        <h1>Integration with Telemedicine Services</h1>
+        <p className="">
+          Teleconsultation Booking: Nishauri is integrated with telemedicine
+          platforms therefore enabling users to schedule virtual consultations
+          through it.
+        </p>
+        {/* <img
+          className="hidden h-[80%] opacity-45 absolute bottom-0 cover rounded-md m-2"
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhZGuwvPRiep4izTj5i0uMzkWLioN-9Fzi6A&s"
+          alt="Kenyan Health Workers"
+        /> */}
       </div>
-      <div className="h-[500px]">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, porro
-        voluptatum? Perferendis aliquam cum quisquam, fugiat vel magni optio
-        temporibus commodi eos, voluptates dicta explicabo at a obcaecati
-        aspernatur velit.
+      <div className="bg-[url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhZGuwvPRiep4izTj5i0uMzkWLioN-9Fzi6A&s')] bg-cover opacity-50 h-[500px] flex  flex-col items-center pt-2">
+        <h1>Location Data</h1>
+        <p className="">
+          Using the GPS and user's location the Nishauri can provide relevant
+          health info based on local health services and resources.
+        </p>
+
+        <br />
+        <br />
+
+        <h2>Emergency Services Locator</h2>
+        <p>
+          In case of emergencies, Nishauri can quickly provide information on
+          nearby emergency services and hospitals.
+        </p>
       </div>
       <div className="flex justify-between bg-[rgba(62,105,236,255)] h-[500px]">
-        <div className="">Social Media</div>
-        <div className="">About</div>
-        <div className="">Nishauri</div>
-        <div className="">Terms & Policies</div>
+        <div className="w-full">Social Media</div>
+        <div className="w-full">About</div>
+        <div className="w-full">Nishauri</div>
+        <div className="w-full">Terms & Policies</div>
       </div>
     </div>
   );

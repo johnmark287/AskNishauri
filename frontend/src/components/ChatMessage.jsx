@@ -1,6 +1,11 @@
 // import React from 'react'
 import PropTypes from "prop-types";
 import { marked } from "marked";
+import "animate.css";
+import {
+  Fade
+} from "react-awesome-reveal";
+
 
 function ChatMessage({ sender, timestamp, message }) {
   const prefix = "**Nishauri:**";
@@ -15,10 +20,11 @@ function ChatMessage({ sender, timestamp, message }) {
   }
 
   return (
+    <Fade duration={2500}>
     <div
       className={`${
         sender === "Nishauri" ? "justify-start" : "justify-end"
-      } my-3 flex`}
+      } my-3 flex `}
     >
       <div
         className={`${
@@ -44,6 +50,7 @@ function ChatMessage({ sender, timestamp, message }) {
         </div>
       </div>
     </div>
+  </Fade  >
   );
 }
 

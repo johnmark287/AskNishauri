@@ -1,33 +1,18 @@
 // import React from 'react'
 import PropTypes from "prop-types";
-
-function formatText(input) {
-  let lines = input.split("\n");
-  let formattedLines = [];
-  let sentenceCount = 0;
-
-  lines.forEach((line) => {
-    // Process bold formatting
-    line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-
-    // Split line by `* ` and process each segment
-    let segments = line.split("* ").filter((segment) => segment.trim() !== "");
-
-    segments.forEach((segment) => {
-      sentenceCount++;
-      formattedLines.push(`${sentenceCount}. ${segment.trim()}`);
-    });
-
-    // Add a new line for clarity between original lines
-    formattedLines.push("");
-  });
-
-  // Join the processed lines back into a single string
-  return formattedLines.join("\n").trim();
-}
+import { marked } from "marked";
 
 function ChatMessage({ sender, timestamp, message }) {
-  const formattedMessage = formatText(message);
+  const prefix = "**Nishauri:**";
+  let htmlContent;
+  if (message.startsWith(prefix)) {
+    // console.log("Message starts with Nishauri");
+    htmlContent = marked.parse(message.substring(prefix.length).trim());
+    // console.log(htmlContent);
+  } else {
+    // console.log("Message does not start with Nishauri");
+    htmlContent = marked.parse(message);
+  }
 
   return (
     <div
@@ -43,7 +28,10 @@ function ChatMessage({ sender, timestamp, message }) {
         } relative p-2 m-2 rounded-2xl `}
       >
         <div className="text-left min-w-[80px] ">
-          <span dangerouslySetInnerHTML={{ __html: formattedMessage }} />
+          <div
+            className="prose prose-lg max-w-none"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
         </div>
         <div className="">
           <div

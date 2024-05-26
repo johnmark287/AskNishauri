@@ -24,21 +24,20 @@ api_key = os.getenv("GOOGLE_API_KEY")
 CHROMA_DB_PATH = "../database/chroma"
 PROMPT_TEMPLATE = """
 **Context:**
+* You are a personal health assistant called Dr.Nishauri provided with the patient's real-time location, {location}, helping patients with medical queries.
 
-* **Location:** {location}
+* **Patient Real-Time Location:** {location}
 * **Patient Details:** {context}
-* **Hospitals Details:** {hospitals}
 * **Conversation History:** {history}
+* **Hospitals Details:** {hospitals}
 
 **User Query:** {question}
 
-* You are my personal health assistant called Dr.Nishauri helping patients with medical queries.
 
 **Instructions:**
 
 1. **Identify Query Type:**
     * If the query is a greeting, respond with a greeting tailored to the time of day and patient's name (e.g., "Good morning, [Patient Name]").
-    * If the query is not in the context of health or medical advice, politely redirect the conversation back to the patient's health concerns (e.g., [Query: What is the weather like today?] The response should be  [Response: I'm Sorry but I can only help with health-related queries. How can I assist you today?]")
     * If the query is a request for information, prioritize using the provided patient details, conversation history, and external information from reliable medical sources. Ensure the information is relevant to the patient's location and context.
     * If the query requires further clarification or suggests a potential health concern, acknowledge and offer assistance (e.g., "I understand you're concerned about [symptom]. Can you tell me more about what you're experiencing?").
     * If the query is a request for a specific action or recommendation, provide clear and concise guidance based on the patient's details and context.
@@ -48,28 +47,47 @@ PROMPT_TEMPLATE = """
     * Base your response on the provided context and reliable external medical sources, ensuring factual accuracy.
     * Acknowledge limitations and encourage seeking professional medical advice for complex issues or suspected diagnoses (e.g., "This information cannot replace a doctor's diagnosis. If you're concerned, please schedule an appointment with your physician.").
     * Consider incorporating elements of empathy and reassurance in your responses.
-    * Use "\n" to indicate separate paragraphs for readability and clarity.
 
 3. **Privacy and Security:**
     * Do not disclose any personal health information beyond what is explicitly provided in the patient details and conversation history.
     * Maintain user privacy by not referencing external information that could be traced back to the patient.
 
-**Example Usage:**
+* **Patient Real-Time Location:** {location}
+"""
 
-**Location:** Nairobi, Kenya
-**Patient Details:** John Doe, 35 years old, history of allergies
-**Conversation History:** (Previous conversation was about a sore throat)
-**User Query:** Is this sore throat a sign of something serious?
 
-**Possible Response:**
+PROMPT_TEMPLATE_2 = """
+**Context:**
+* Assume your role is to generate follow-up questions that the user is likely to ask based on the response provided to their initial query.
 
-"Hi John, it's good to hear from you again. I understand you're concerned about your sore throat. While a sore throat can be caused by various factors, including allergies or a simple virus, it's important to consider your specific situation. Based on previous conversations, you mentioned having allergies. 
+* **Initial Query:** {question}
+* **Response Given:** {response}
+* **Conversation History:** {history}
 
-According to the Mayo Clinic [link to reliable medical source], a sore throat caused by allergies can present with symptoms like [list symptoms]. If your allergies could be a cause, consider taking an over-the-counter antihistamine. However, if your symptoms worsen or persist more than a few days, it's always best to seek professional medical advice. 
+**Instructions:**
 
-Please let me know if you have any other questions, or if you'd like help finding a doctor in Nairobi."
+1. **Analyze Response:**
+    * Review the response provided given on the Initial Query.
+
+2. **Generate potential follow up questions:**
+    * Formulate follow-up questions to further explore the topic or request additional information.
+    * Consider the context of the conversation and the user's intent in crafting your questions.
+    * Aim to deepen the conversation.
+
+3. **Craft Response:**
+    * Use the response provided as a reference point for your follow-up questions.
+    * Maintain a conversational and engaging tone to encourage further interaction.
+    * Seek to address any unanswered questions or areas of interest raised by the user.
+    * Consider incorporating elements of empathy and understanding in your responses.
+    * Encourage the user to provide more details or ask additional questions to enhance the conversation.
+
+4. **Returning Response**
+    * Pick at most 3 that are most relevant
+    * Do not include numbers in your response i.e no numbering the follow-up questions
+    * Return your response as a list (e.g., [follow-up_1, follow-up_3, follow-up_3 ]).
 
 """
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -106,7 +124,7 @@ def logout():
     data = request.get_json()
     user = data["user"]
     history = data["history"]
-    print(f"User: {data}")
+    # print(f"User: {data}")
 
     # Save the history to a json file with user as key
     with open("../data/chats-hist.json", "r") as file:
@@ -123,7 +141,7 @@ def logout():
 def chatbot():
     print("Chatbot invoked")
     data = request.get_json()
-    print(f"Data: {data}")
+    # print(f"Data: {data}")
     query_text = data["message"]
     details = data["details"]
     history = data["history"]
@@ -136,20 +154,27 @@ def chatbot():
 
     results = db.similarity_search_with_relevance_scores(query, k=5)
     print("\n")
-    print(f"Results: {results}")
+    # print(f"Results: {results}")
 
     if len(results) == 0 or results[0][1] < 0.5:
         print("No results found")
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+    prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
     prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Juja,Kiambu, Kenya", history=history)
 
     model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
 
     try:
+        response = model_one.invoke(prompt).content
+        print(type(response))
         response_one = dict(model_one.invoke(prompt))
-        return jsonify({"message": response_one["content"], "status": "success"})
+
+        prompt_2 = prompt_template_2.format(question=query_text, response=response, history=history)
+        response_two = model_one.invoke(prompt_2).content
+
+        return jsonify({"message": response_one["content"], "followUps": response_two.split("\n") ,"status": "success"})
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": e, "status": "error"})
@@ -157,13 +182,11 @@ def chatbot():
         print("\n")
         print(f"Question: {query_text}" )
         print("\n")
-        print(
-            response_one["content"]
-            # .replace("(", " ")
-            # .replace(")", " ")
-            # .replace("'", " ")
-            # .strip()
-        )
+        print(response)
+        print("\n")
+        print(response_one)
+        print("\n")
+        print(response_two.split("\n"))
 
 
 def main():

@@ -32,16 +32,16 @@ PROMPT_TEMPLATE = """
 
 **User Query:** {question}
 
-* You are a personal health assistant called Dr.Nishauri helping patients with medical queries.
+* You are my personal health assistant called Dr.Nishauri helping patients with medical queries.
 
 **Instructions:**
 
 1. **Identify Query Type:**
     * If the query is a greeting, respond with a greeting tailored to the time of day and patient's name (e.g., "Good morning, [Patient Name]").
+    * If the query is not in the context of health or medical advice, politely redirect the conversation back to the patient's health concerns (e.g., [Query: What is the weather like today?] The response should be  [Response: I'm Sorry but I can only help with health-related queries. How can I assist you today?]")
     * If the query is a request for information, prioritize using the provided patient details, conversation history, and external information from reliable medical sources. Ensure the information is relevant to the patient's location and context.
     * If the query requires further clarification or suggests a potential health concern, acknowledge and offer assistance (e.g., "I understand you're concerned about [symptom]. Can you tell me more about what you're experiencing?").
     * If the query is a request for a specific action or recommendation, provide clear and concise guidance based on the patient's details and context.
-    * If the query is not in the context of health or medical advice, politely redirect the conversation back to the patient's health concerns.
 
 2. **Craft Response:**
     * Maintain a professional and informative tone, avoiding medical jargon whenever possible.
@@ -127,7 +127,7 @@ def chatbot():
     query_text = data["message"]
     details = data["details"]
     history = data["history"]
-    query = f"{query_text} or Kisumu"
+    query = f"{query_text} in Juja,Kiambu,Kenya"
 
     embedding_function = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001", google_api_key=api_key
@@ -143,7 +143,7 @@ def chatbot():
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-    prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Kisumu, Kenya", history=history)
+    prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Juja,Kiambu, Kenya", history=history)
 
     model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
 

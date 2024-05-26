@@ -4,11 +4,13 @@ import Navbar from "./Navbar";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
+import FollowUps from "./FollowUps";
 
 function Main() {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const closeSettingsRef = useRef();
@@ -130,8 +132,9 @@ function Main() {
               timestamp: getCurrentTimestamp(),
             },
           ]);
-          let utterance = new SpeechSynthesisUtterance(data.message);
-          speechSynthesis.speak(utterance);
+          setQuestions(data.followUps);
+          // let utterance = new SpeechSynthesisUtterance(data.message);
+          // speechSynthesis.speak(utterance);
         } else {
           console.error("Error:", data.message);
         }
@@ -188,7 +191,9 @@ function Main() {
         isListening={isListening}
         startListening={startListening}
         stopListening={stopListening}
-      />
+      >
+        <FollowUps questions={questions} />
+      </Inputbar>
     </div>
   );
 }

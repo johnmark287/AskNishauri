@@ -3,6 +3,7 @@ import Navbar from "./Navbar";
 // import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
+import useSpeechRecognition from "../hooks/useSpeechRecognition";
 
 function Main() {
   const [logout, setLogout] = useState(false);
@@ -12,6 +13,14 @@ function Main() {
   const messagesEndRef = useRef(null);
   const closeSettingsRef = useRef();
   const closeLogoutRef = useRef();
+  const {
+    text,
+    setText,
+    isListening,
+    startListening,
+    stopListening,
+    // hasRecognition,
+  } = useSpeechRecognition();
 
   useEffect(() => {
     function handleCloseLogoutRef(event) {
@@ -86,7 +95,7 @@ function Main() {
       console.log("Empty input");
       return;
     }
-    document.getElementById("input").value = "";
+    setText("");
 
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -121,8 +130,8 @@ function Main() {
               timestamp: getCurrentTimestamp(),
             },
           ]);
-          // localStorage.removeItem("history");
-          // localStorage.setItem("history", JSON.stringify(messages));
+          let utterance = new SpeechSynthesisUtterance(data.message);
+          speechSynthesis.speak(utterance);
         } else {
           console.error("Error:", data.message);
         }
@@ -170,7 +179,16 @@ function Main() {
       />
 
       {/* input */}
-      <Inputbar handleInput={handleInput} handleEnterKey={handleEnterKey} />
+      <Inputbar
+        handleInput={handleInput}
+        handleEnterKey={handleEnterKey}
+        isLoading={isLoading}
+        text={text}
+        setText={setText}
+        isListening={isListening}
+        startListening={startListening}
+        stopListening={stopListening}
+      />
     </div>
   );
 }

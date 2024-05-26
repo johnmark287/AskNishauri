@@ -4,7 +4,6 @@ import ephraim from "./../assets/ephraim.jpg";
 import collins from "./../assets/collins.jpg";
 import johnmark from "./../assets/johnmark.jpg";
 
-
 function LandingMain() {
   return (
     <div className="h-screen">
@@ -111,18 +110,34 @@ function LandingMain() {
             <div className="">
               <div className="flex justify-evenly items-center m-5">
                 <div className="relative h-[110px] w-[110px]">
-                  <img src={nicole} alt="Nicole's Profile" className="absolute h-full w-full rounded-full object-cover" />
+                  <img
+                    src={nicole}
+                    alt="Nicole's Profile"
+                    className="absolute h-full w-full rounded-full object-cover"
+                  />
                 </div>
                 <div className="relative h-[110px] w-[110px]">
-                  <img src={ephraim} alt="Ephraim's Profile" className="absolute h-full w-full rounded-full object-cover" />
+                  <img
+                    src={ephraim}
+                    alt="Ephraim's Profile"
+                    className="absolute h-full w-full rounded-full object-cover"
+                  />
                 </div>
                 <div className="relative h-[110px] w-[110px]">
-                  <img src={collins} alt="Collins's Profile" className="absolute h-full w-full rounded-full object-cover" />
+                  <img
+                    src={collins}
+                    alt="Collins's Profile"
+                    className="absolute h-full w-full rounded-full object-cover"
+                  />
                 </div>
               </div>
               <div className="flex justify-evenly">
                 <div className="relative h-[110px] w-[110px]">
-                  <img src={johnmark} alt="Johnmark's Profile" className="absolute h-full w-full rounded-full object-cover" />
+                  <img
+                    src={johnmark}
+                    alt="Johnmark's Profile"
+                    className="absolute h-full w-full rounded-full object-cover"
+                  />
                 </div>
                 <div className="relative h-[110px] w-[110px]">Chris</div>
               </div>

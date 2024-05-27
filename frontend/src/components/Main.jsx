@@ -7,6 +7,7 @@ import useSpeechRecognition from "../hooks/useSpeechRecognition";
 import FollowUps from "./FollowUps";
 
 function Main() {
+  const ques = ["What is the weather today?", "What is the time?", "What is the date?"]
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -91,8 +92,7 @@ function Main() {
     return `${dayOfWeek} ${hour}:${minutes} ${period}`;
   }
 
-  async function handleInput() {
-    const userInput = document.getElementById("input").value;
+  async function sendMessage(userInput) {
     if (userInput === "") {
       console.log("Empty input");
       return;
@@ -117,7 +117,7 @@ function Main() {
       body: JSON.stringify({
         message: userInput,
         details: JSON.parse(localStorage.getItem("details")),
-        history: messages,
+        history: messages.slice().reverse(),
       }),
     })
       .then((response) => response.json())
@@ -147,10 +147,21 @@ function Main() {
       });
   }
 
+  function handleInput() {
+    const userInput = document.getElementById("input").value;
+    sendMessage(userInput);
+    setQuestions([]);
+  }
+
   function handleEnterKey(event) {
     if (event.key === "Enter") {
       handleInput();
     }
+  }
+
+  function handleFollowUpClick(question) {
+    sendMessage(question);
+    setQuestions([])
   }
 
   function handleLogout() {
@@ -192,7 +203,7 @@ function Main() {
         startListening={startListening}
         stopListening={stopListening}
       >
-        <FollowUps questions={questions} />
+        <FollowUps questions={questions} onQuestionClick={handleFollowUpClick} />
       </Inputbar>
     </div>
   );

@@ -26,9 +26,9 @@ PROMPT_TEMPLATE = """
 **Context:**
 * You are a personal health assistant called Dr.Nishauri provided with the patient's real-time location, {location}, helping patients with medical queries.
 
-* **Patient Real-Time Location:** {location}
+* **Patient Real-Time Location and time:** {location} at {time} 
 * **Patient Details:** {context}
-* **Conversation History:** {history}
+* **Conversation History sorted from the latest message to the oldest:** {history}
 * **Hospitals Details:** {hospitals}
 
 **User Query:** {question}
@@ -52,17 +52,18 @@ PROMPT_TEMPLATE = """
     * Do not disclose any personal health information beyond what is explicitly provided in the patient details and conversation history.
     * Maintain user privacy by not referencing external information that could be traced back to the patient.
 
-* **Patient Real-Time Location:** {location}
+* **Patient Real-Time Location and time:** {location} at {time}
 """
 
 
 PROMPT_TEMPLATE_2 = """
 **Context:**
-* Assume your role is to generate follow-up questions that the user is likely to ask based on the response provided to their initial query.
+* Assume you are the {patient} and you are to ask the next question,
+* Your role is to generate follow-up questions that the {patient} is likely to ask based on the response provided to their initial query.
 
-* **Initial Query:** {question}
+* **Initial {patient}'s Query:** {question}
 * **Response Given:** {response}
-* **Conversation History:** {history}
+* **Conversation History sorted from the latest message to the oldest:** {history}
 
 **Instructions:**
 
@@ -85,6 +86,36 @@ PROMPT_TEMPLATE_2 = """
     * Pick at most 3 that are most relevant
     * Do not include numbers in your response i.e no numbering the follow-up questions
     * Return your response as a list (e.g., [follow-up_1, follow-up_3, follow-up_3 ]).
+
+"""
+
+
+PROMPT_TEMPLATE_3 = """
+**Context:**
+* Assume your role is to analyze two responses given to a user query and return the better response based on the context and quality of information provided.
+
+* **User Query:** {question}
+* **Response 1:** {response_1}
+* **Response 2:** {response_2}
+
+**Instructions:**
+
+1. **Analyze Responses:**
+    * Review the two responses provided to the user query.
+    * Consider the relevance, accuracy, and informativeness of each response.
+
+2. **Select the Better Response:**
+    * Choose the response that is more informative, relevant, and engaging based on the user query.
+    * Consider the quality of the information provided and the user's likely satisfaction with the response.
+
+3. **Craft Response:**
+    * If both responses are equally good, combine the key points from each response into a single response.
+    * Maintain a professional and informative tone in your response.
+
+4. **Returning Response**
+    * Rewrite the better response exactly as it was given as your response.
+    * Do not indicate anywhere the response that you picked
+
 
 """
 
@@ -154,7 +185,7 @@ def chatbot():
 
     results = db.similarity_search_with_relevance_scores(query, k=5)
     print("\n")
-    # print(f"Results: {results}")
+    print(f"Results: {results}")
 
     if len(results) == 0 or results[0][1] < 0.5:
         print("No results found")
@@ -162,6 +193,7 @@ def chatbot():
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
+    prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
     prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Juja,Kiambu, Kenya", history=history)
 
     model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
@@ -171,10 +203,14 @@ def chatbot():
         print(type(response))
         response_one = dict(model_one.invoke(prompt))
 
-        prompt_2 = prompt_template_2.format(question=query_text, response=response, history=history)
+        prompt_3 = prompt_template_3.format(question=query_text, response_1=response, response_2=response_one["content"])
+        response_three = model_one.invoke(prompt_3).content
+
+        prompt_2 = prompt_template_2.format( patient=details["name"], question=query_text, response=response_three, history=history)
         response_two = model_one.invoke(prompt_2).content
 
-        return jsonify({"message": response_one["content"], "followUps": response_two.split("\n") ,"status": "success"})
+
+        return jsonify({"message": response_three, "followUps": response_two.split("\n") ,"status": "success"})
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": e, "status": "error"})
@@ -185,6 +221,8 @@ def chatbot():
         print(response)
         print("\n")
         print(response_one)
+        print("\n")
+        print(response_three)
         print("\n")
         print(response_two.split("\n"))
 

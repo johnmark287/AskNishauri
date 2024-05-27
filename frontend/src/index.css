@@ -75,3 +75,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+.box {
+  cursor: pointer;
+  border: 1px solid #0000;
+  background: linear-gradient(white, transparent) padding-box, linear-gradient(
+        var(--angle),
+        #fbe2ff,
+        #f3aafe
+      ) border-box;
+  animation: 8s pulse linear infinite;
+}
+
+.box:hover {
+  animation: none;
+  /* --angle: 180deg; */
+}
+
+@keyframes pulse {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+

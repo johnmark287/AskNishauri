@@ -2,10 +2,7 @@
 import PropTypes from "prop-types";
 import { marked } from "marked";
 import "animate.css";
-import {
-  Fade
-} from "react-awesome-reveal";
-
+import { Fade } from "react-awesome-reveal";
 
 function ChatMessage({ sender, timestamp, message }) {
   const prefix = "**Nishauri:**";
@@ -21,36 +18,38 @@ function ChatMessage({ sender, timestamp, message }) {
 
   return (
     <Fade duration={2500}>
-    <div
-      className={`${
-        sender === "Nishauri" ? "justify-start" : "justify-end"
-      } my-3 flex `}
-    >
       <div
         className={`${
-          sender === "Nishauri"
-            ? "border border-[#B273F0] max-w-[75%] rounded-bl-none"
-            : "bg-[#B273F0] max-w-[75%] rounded-br-none"
-        } relative p-2 m-2 rounded-2xl `}
+          sender === "Nishauri" ? "justify-start" : "justify-end"
+        } my-3 flex `}
       >
-        <div className="text-left min-w-[80px] ">
-          <div
-            className={` ${sender === "Nishauri" ? "" : "text-white"}  prose prose-lg max-w-none`}
-            dangerouslySetInnerHTML={{ __html: htmlContent }}
-          />
-        </div>
-        <div className="">
-          <div
-            className={`absolute -bottom-4 text-black text-[10px] ${
-              sender === "Nishauri" ? "left-2" : "right-2"
-            }`}
-          >
-            {timestamp}
+        <div
+          className={`${
+            sender === "Nishauri"
+              ? "border border-[#B273F0] max-w-[75%] rounded-bl-none"
+              : "bg-[#B273F0] max-w-[75%] rounded-br-none"
+          } relative p-2 m-2 rounded-2xl `}
+        >
+          <div className="text-left min-w-[80px] ">
+            <div
+              className={` ${
+                sender === "Nishauri" ? "" : "text-white"
+              }  prose prose-lg max-w-none`}
+              dangerouslySetInnerHTML={{ __html: htmlContent }}
+            />
+          </div>
+          <div className="">
+            <div
+              className={`absolute -bottom-4 text-black text-[10px] ${
+                sender === "Nishauri" ? "left-2" : "right-2"
+              }`}
+            >
+              {timestamp}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </Fade  >
+    </Fade>
   );
 }
 

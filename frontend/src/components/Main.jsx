@@ -7,7 +7,6 @@ import useSpeechRecognition from "../hooks/useSpeechRecognition";
 import FollowUps from "./FollowUps";
 
 function Main() {
-  const ques = ["What is the weather today?", "What is the time?", "What is the date?"]
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -22,7 +21,6 @@ function Main() {
     isListening,
     startListening,
     stopListening,
-    // hasRecognition,
   } = useSpeechRecognition();
 
   useEffect(() => {
@@ -52,10 +50,6 @@ function Main() {
     };
   });
 
-  // useEffect(() => {
-  //   messagesEndRef.current?.scrollIntoView();
-  // }, [messages]);
-
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("history"));
     if (history.length > 0) {
@@ -68,27 +62,16 @@ function Main() {
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
-  // setMessages(JSON.parse(localStorage.getItem("history")));
 
   function getCurrentTimestamp() {
     const date = new Date();
-
-    // Get day of the week (e.g., "WED")
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
     const dayOfWeek = daysOfWeek[date.getDay()];
-
-    // Convert hour to 12-hour format
     let hour = date.getHours() % 12;
-    hour = hour === 0 ? 12 : hour; // Convert 0 to 12 for 12-hour format
-    hour = hour < 10 ? "0" + hour : hour; // Add leading zero if needed
-
-    // Add leading zero for single digit minutes
+    hour = hour === 0 ? 12 : hour;
+    hour = hour < 10 ? "0" + hour : hour;
     const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-
-    // Get AM or PM
     const period = date.getHours() >= 12 ? "PM" : "AM";
-
-    // Return formatted timestamp
     return `${dayOfWeek} ${hour}:${minutes} ${period}`;
   }
 
@@ -118,6 +101,7 @@ function Main() {
         message: userInput,
         details: JSON.parse(localStorage.getItem("details")),
         history: messages.slice().reverse(),
+        time: getCurrentTimestamp(),
       }),
     })
       .then((response) => response.json())
@@ -171,6 +155,26 @@ function Main() {
   function handleSettings() {
     setSettings(!settings);
   }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+
+
+
+
+
+
   return (
     // main
     <div className="relative flex flex-col box-border bg-[rgba(29,31,34,255)] h-screen w-full">

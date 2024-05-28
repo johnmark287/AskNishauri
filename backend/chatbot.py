@@ -176,7 +176,8 @@ def chatbot():
     query_text = data["message"]
     details = data["details"]
     history = data["history"]
-    query = f"{query_text} in Juja,Kiambu,Kenya"
+    time = data["time"]
+    query = f"Juja,Kiambu,Kenya"
 
     embedding_function = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001", google_api_key=api_key
@@ -185,7 +186,7 @@ def chatbot():
 
     results = db.similarity_search_with_relevance_scores(query, k=5)
     print("\n")
-    print(f"Results: {results}")
+    # print(f"Results: {results}")
 
     if len(results) == 0 or results[0][1] < 0.5:
         print("No results found")
@@ -194,7 +195,7 @@ def chatbot():
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
     prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
-    prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Juja,Kiambu, Kenya", history=history)
+    prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Juja,Kiambu, Kenya", time=time, history=history)
 
     model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
 

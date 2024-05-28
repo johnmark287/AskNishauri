@@ -17,7 +17,7 @@ function ChatMessage({ sender, timestamp, message }) {
   }
 
   return (
-    <Fade duration={2500}>
+    <Fade duration={1000}>
       <div
         className={`${
           sender === "Nishauri" ? "justify-start" : "justify-end"

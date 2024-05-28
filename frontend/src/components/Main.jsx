@@ -117,8 +117,8 @@ function Main() {
             },
           ]);
           setQuestions(data.followUps);
-          // let utterance = new SpeechSynthesisUtterance(data.message);
-          // speechSynthesis.speak(utterance);
+          let utterance = new SpeechSynthesisUtterance("Hello world");
+          speechSynthesis.speak(utterance);
         } else {
           console.error("Error:", data.message);
         }

@@ -18,7 +18,7 @@ function FollowUps({ questions, onQuestionClick }) {
   return (
     <div className="flex w-full items-center justify-center">
       {resultArray.map((question, index) => (
-        <Zoom duration={2500} key={index}>
+        <Zoom duration={1000} key={index}>
           <div
             className="box flex m-2 p-2 rounded-2xl cursor-pointer hover:border-[#B273F0]"
             onClick={() => onQuestionClick(question)}

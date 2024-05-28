@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 let recognition = null;
 
-if ("webkitSpeechRecognition" in window) {
+if (("webkitSpeechRecognition" || "SpeechRecognition") in window) {
   recognition =
     new window.webkitSpeechRecognition() || new window.SpeechRecognition();
   recognition.continuous = true;

@@ -10,8 +10,10 @@ function Inputbar({ children, handleInput, handleEnterKey, isLoading, text, setT
   function handleButtonClick() {
     if (isListening) {
       stopListening();
+      console.log("stop");
     } else {
       startListening();
+      console.log("start");
       inputRef.current.focus();
     }
   }
@@ -36,7 +38,7 @@ function Inputbar({ children, handleInput, handleEnterKey, isLoading, text, setT
         <div className=" absolute bg-[#ffffff] w-[90%] sm:w-[80%] md:w-[70%] lg:w-[60%] rounded-3xl p-2 border-[2.5px] border-[#fbe2ff]">
           <input
             ref={inputRef}
-            className="ml-3 relative outline-none bg-transparent text-black w-[95%] relative pr-[9%] sm:pr-[7%] md:pr-[6%] lg:pr-[4%] pl-3 outline-none bg-transparent text-black w-full"
+            className="ml-3 relative outline-none bg-transparent text-black w-[95%]  pr-[9%] sm:pr-[7%] md:pr-[6%] lg:pr-[4%] pl-3"
             onChange={handleChange}
             value={`${isLoading ? "" : text}`}
             type="textarea"
@@ -72,6 +74,7 @@ function Inputbar({ children, handleInput, handleEnterKey, isLoading, text, setT
               className={`rounded-2xl absolute bottom-[3px] right-2 p-[3px] bg-transparent ${
                 sendButton ? "hover:bg-[#e0c8f6]" : " "
               }`}
+              >
 
               <svg
                 // className="fill-current  text-black hover:fill-[hsl(216,8%,12%)] hover:text-[hsl(216,8%,12%)]  rounded-2xl"

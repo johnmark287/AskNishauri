@@ -139,7 +139,9 @@ function LandingMain() {
                     className="absolute h-full w-full rounded-full object-cover"
                   />
                 </div>
-                <div className="relative h-[110px] w-[110px]">Chris</div>
+                <div className="relative h-[110px] flex justify-center items-center rounded-full w-[110px] bg-[#D9D9D9]">
+                  <p>Chris</p>
+                </div>
               </div>
             </div>
           </div>

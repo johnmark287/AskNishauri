@@ -1,13 +1,19 @@
-import LandingMain from "../components/LandingMain"
-import LandingNavbar from "../components/LandingNavbar"
+import { useState } from "react";
+import LandingMain from "../components/LandingMain";
+import LandingNavbar from "../components/LandingNavbar";
 
 function Landing() {
+  const [open, setOpen] = useState(true);
+
+  function handleOpen() {
+    setOpen(!open);
+  }
   return (
-    <div className="text-black">
-        <LandingNavbar />
-        <LandingMain />
+    <div className="text-black relative">
+      <LandingNavbar open={open} setOpen={handleOpen} />
+      <LandingMain />
     </div>
-  )
+  );
 }
 
-export default Landing
+export default Landing;

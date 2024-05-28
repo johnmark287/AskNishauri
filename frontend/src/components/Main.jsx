@@ -3,15 +3,25 @@ import Navbar from "./Navbar";
 // import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
+import useSpeechRecognition from "../hooks/useSpeechRecognition";
+import FollowUps from "./FollowUps";
 
 function Main() {
   const [logout, setLogout] = useState(false);
   const [settings, setSettings] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const closeSettingsRef = useRef();
   const closeLogoutRef = useRef();
+  const {
+    text,
+    setText,
+    isListening,
+    startListening,
+    stopListening,
+  } = useSpeechRecognition();
 
   useEffect(() => {
     function handleCloseLogoutRef(event) {
@@ -40,10 +50,6 @@ function Main() {
     };
   });
 
-  // useEffect(() => {
-  //   messagesEndRef.current?.scrollIntoView();
-  // }, [messages]);
-
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("history"));
     if (history.length > 0) {
@@ -56,37 +62,25 @@ function Main() {
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
-  // setMessages(JSON.parse(localStorage.getItem("history")));
 
   function getCurrentTimestamp() {
     const date = new Date();
-
-    // Get day of the week (e.g., "WED")
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
     const dayOfWeek = daysOfWeek[date.getDay()];
-
-    // Convert hour to 12-hour format
     let hour = date.getHours() % 12;
-    hour = hour === 0 ? 12 : hour; // Convert 0 to 12 for 12-hour format
-    hour = hour < 10 ? "0" + hour : hour; // Add leading zero if needed
-
-    // Add leading zero for single digit minutes
+    hour = hour === 0 ? 12 : hour;
+    hour = hour < 10 ? "0" + hour : hour;
     const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-
-    // Get AM or PM
     const period = date.getHours() >= 12 ? "PM" : "AM";
-
-    // Return formatted timestamp
     return `${dayOfWeek} ${hour}:${minutes} ${period}`;
   }
 
-  async function handleInput() {
-    const userInput = document.getElementById("input").value;
+  async function sendMessage(userInput) {
     if (userInput === "") {
       console.log("Empty input");
       return;
     }
-    document.getElementById("input").value = "";
+    setText("");
 
     setMessages((prevMessages) => [
       ...prevMessages,
@@ -103,7 +97,12 @@ function Main() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ message: userInput, history: messages }),
+      body: JSON.stringify({
+        message: userInput,
+        details: JSON.parse(localStorage.getItem("details")),
+        history: messages.slice().reverse(),
+        time: getCurrentTimestamp(),
+      }),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -117,8 +116,9 @@ function Main() {
               timestamp: getCurrentTimestamp(),
             },
           ]);
-          // localStorage.removeItem("history");
-          // localStorage.setItem("history", JSON.stringify(messages));
+          setQuestions(data.followUps);
+          // let utterance = new SpeechSynthesisUtterance(data.message);
+          // speechSynthesis.speak(utterance);
         } else {
           console.error("Error:", data.message);
         }
@@ -131,10 +131,21 @@ function Main() {
       });
   }
 
+  function handleInput() {
+    const userInput = document.getElementById("input").value;
+    sendMessage(userInput);
+    setQuestions([]);
+  }
+
   function handleEnterKey(event) {
     if (event.key === "Enter") {
       handleInput();
     }
+  }
+
+  function handleFollowUpClick(question) {
+    sendMessage(question);
+    setQuestions([])
   }
 
   function handleLogout() {
@@ -144,6 +155,26 @@ function Main() {
   function handleSettings() {
     setSettings(!settings);
   }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+      },
+      (error) => {
+        console.error("Error getting geolocation:", error);
+      }
+    );
+  } else {
+    console.error("Geolocation is not supported by this browser.");
+  }
+
+
+
+
+
+
   return (
     // main
     <div className="relative flex flex-col box-border bg-[rgba(29,31,34,255)] h-screen w-full">
@@ -166,7 +197,18 @@ function Main() {
       />
 
       {/* input */}
-      <Inputbar handleInput={handleInput} handleEnterKey={handleEnterKey} />
+      <Inputbar
+        handleInput={handleInput}
+        handleEnterKey={handleEnterKey}
+        isLoading={isLoading}
+        text={text}
+        setText={setText}
+        isListening={isListening}
+        startListening={startListening}
+        stopListening={stopListening}
+      >
+        <FollowUps questions={questions} onQuestionClick={handleFollowUpClick} />
+      </Inputbar>
     </div>
   );
 }

@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line no-undef
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{js,jsx}',
-    './components/**/*.{js,jsx}',
-    './app/**/*.{js,jsx}',
-    './src/**/*.{js,jsx}',
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./app/**/*.{js,jsx}",
+    "./src/**/*.{js,jsx}",
   ],
   prefix: "",
   theme: {
@@ -58,20 +59,27 @@ module.exports = {
         sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
-        },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+        // "accordion-down": {
+        //   from: { height: "0" },
+        //   to: { height: "var(--radix-accordion-content-height)" },
+        // },
+        // "accordion-up": {
+        //   from: { height: "var(--radix-accordion-content-height)" },
+        //   to: { height: "0" },
+        // },
+        "border-spin": {
+          "100%": {
+            transform: "rotate(-360deg)",
+          },
         },
       },
       animation: {
+        "border-spin": "border-spin 7s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-}
+  // eslint-disable-next-line no-undef
+  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+};

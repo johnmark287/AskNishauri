@@ -26,6 +26,8 @@ dist-ssr
 data
 database
 .env
+t.py
+Test.jsx
 
 env/
 venv/

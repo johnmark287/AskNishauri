@@ -31,6 +31,7 @@ function Navbar({
         if (data.status === "success") {
           localStorage.removeItem("user");
           localStorage.removeItem("id");
+          localStorage.removeItem("details");
           localStorage.removeItem("history");
           navigate("/login", { replace: true });
         } else {

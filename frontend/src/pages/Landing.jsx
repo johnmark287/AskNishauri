@@ -1,6 +1,8 @@
 import { useState } from "react";
-import LandingMain from "../components/LandingMain";
+import LandingSidebar from "../components/LandingSidebar";
 import LandingNavbar from "../components/LandingNavbar";
+import LandingMain from "../components/LandingMain";
+import LandingFooter from "../components/LandingFooter";
 
 function Landing() {
   const [open, setOpen] = useState(true);
@@ -10,8 +12,10 @@ function Landing() {
   }
   return (
     <div className="text-black relative">
-      <LandingNavbar open={open} setOpen={handleOpen} />
-      <LandingMain />
+      <LandingSidebar open={open} setOpen={handleOpen} />
+      <LandingNavbar setOpen={handleOpen} />
+      <LandingMain open={open}/>
+      <LandingFooter open={open}/>
     </div>
   );
 }

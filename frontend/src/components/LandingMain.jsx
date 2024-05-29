@@ -64,7 +64,7 @@ function LandingMain({ open }) {
       </Fade>
       <Fade duration={500}>
         <div className="flex flex-col md:flex-row text-white bg-[#B273F0]">
-          <div className="md:w-1/2 flex flex-col">
+          <div className="md:w-1/2 flex flex-col justify-center">
             <div className="font-semibold text-4xl sm:text-5xl m-5">
               <p>Deal with Emergency situations fast</p>
             </div>

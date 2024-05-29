@@ -13,18 +13,18 @@ function LandingSidebar({ open, setOpen }) {
           onClick={() => {
             setOpen();
           }}
-          className={`w-[25px] my-3 h-full cursor-pointer active:text-[#4d494999] rounded-md`}
+          className={`w-[25px] my-3 h-full cursor-pointer active:text-[#4d494999] rounded-md transition hover:transition hover:scale-105 active:transition`}
         />
-        <div className="border-black transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
+        <div className="border-black transition hover:transition hover:scale-105 active:transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
           Home
         </div>
-        <div className="border-black transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
+        <div className="border-black transition hover:transition hover:scale-105 active:transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
           Services
         </div>
-        <div className="border-black transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
+        <div className="border-black transition hover:transition hover:scale-105 active:transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
           About Us
         </div>
-        <div className="border-black transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
+        <div className="border-black transition hover:transition hover:scale-105 active:transition active:bg-black active:text-white px-3 hover:bg-[#4d494999] w-full h-full border-t flex flex-col justify-center cursor-pointer">
           Contact Us
         </div>
       </div>

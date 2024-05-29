@@ -5,6 +5,8 @@ import ChatContainer from "./ChatContainer";
 import Inputbar from "./Inputbar";
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
 import FollowUps from "./FollowUps";
+import axios from "axios";
+
 
 function Main() {
   const [logout, setLogout] = useState(false);
@@ -12,16 +14,18 @@ function Main() {
   const [messages, setMessages] = useState([]);
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [coordinates, setCoorditates] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+  const [location, setLocation] = useState("");
+
   const messagesEndRef = useRef(null);
   const closeSettingsRef = useRef();
   const closeLogoutRef = useRef();
-  const {
-    text,
-    setText,
-    isListening,
-    startListening,
-    stopListening,
-  } = useSpeechRecognition();
+  const { text, setText, isListening, startListening, stopListening } =
+    useSpeechRecognition();
 
   useEffect(() => {
     function handleCloseLogoutRef(event) {
@@ -61,7 +65,6 @@ function Main() {
     localStorage.setItem("history", JSON.stringify(messages));
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
-
 
   function getCurrentTimestamp() {
     const date = new Date();
@@ -145,7 +148,7 @@ function Main() {
 
   function handleFollowUpClick(question) {
     sendMessage(question);
-    setQuestions([])
+    setQuestions([]);
   }
 
   function handleLogout() {
@@ -156,24 +159,50 @@ function Main() {
     setSettings(!settings);
   }
 
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const { latitude, longitude } = position.coords;
-        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-      },
-      (error) => {
-        console.error("Error getting geolocation:", error);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setCoorditates({ latitude, longitude });
+          console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+
+        },
+        (error) => {
+          console.error("Error getting geolocation:", error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
+
+  const getGeocode = async () => {
+    const apiKey = "f796cb79aba840da993f38af94f8cb5f"; // Replace with your actual API key
+    const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${coordinates.latitude}+${coordinates.longitude}&key=${apiKey}`;
+
+    try {
+      const response = await axios.get(geocodeUrl);
+      const results = response.data.results;
+      if (results.length > 0) {
+        // console.log(results[0]);
+        setLocation(results[0].formatted);
+        // console.log(location);
+      } else {
+        setLocation("No address found");
       }
-    );
-  } else {
-    console.error("Geolocation is not supported by this browser.");
-  }
+    } catch (error) {
+      console.error("Error fetching geocode:", error);
+      setLocation("Error fetching address");
+    }
+  };
 
-
-
-
-
+  useEffect(() => {
+    // Geocode only if both longitude and latitude are entered
+    // if (coordinates.longitude !== 0 && coordinates.latitude !== 0) {
+      getGeocode();
+    // }
+  });
 
   return (
     // main
@@ -207,7 +236,10 @@ function Main() {
         startListening={startListening}
         stopListening={stopListening}
       >
-        <FollowUps questions={questions} onQuestionClick={handleFollowUpClick} />
+        <FollowUps
+          questions={questions}
+          onQuestionClick={handleFollowUpClick}
+        />
       </Inputbar>
     </div>
   );

@@ -1,33 +1,23 @@
-// import React from 'react'
-import useSpeechRecognition from '../hooks/useSpeechRecognition'
+import React from "react";
+import { useSpeech } from "react-text-to-speech";
 
 
-function Test() {
-  const {text, isListening, startListening, stopListening, hasRecognition} = useSpeechRecognition();
+
+export default function App() {
+  const txt = "Hello World!";
+
+
+
+  const { Text, speechStatus, start, pause, stop } = useSpeech({
+    text: txt,
+  });
 
   return (
     <div>
-      {hasRecognition ? (
-        <div>
-          <h1>Speech Recognition is available!</h1>
-          <div className="flex flex-col">
-            <button className="border" onClick={startListening}>
-              Start
-            </button>
-            <button className="border" onClick={stopListening}>
-              Stop
-            </button>
-          </div>
-          <p>{text}</p>
-          {isListening && <p>Go ahead listening</p>}
-        </div>
-      ) : (
-        <div>
-          <h1>Speech Recognition is not available!</h1>
-        </div>
-      )}
+      <Text />
+      <button onClick={start}>Start</button>
+      <button onClick={pause}>Pause</button>
+      <button onClick={stop}>Stop</button>
     </div>
   );
 }
-
-export default Test

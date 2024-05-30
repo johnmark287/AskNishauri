@@ -1,20 +1,24 @@
 // import React from 'react'
 import PropTypes from "prop-types";
 import { marked } from "marked";
-import "animate.css";
 import { Fade } from "react-awesome-reveal";
 
 function ChatMessage({ sender, timestamp, message }) {
-  const prefix = "**Nishauri:**";
+  const regex =
+    /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
+  const result = message.replace(regex, "").trim();
+  // console.log(result);
+  // const prefix = "**Nishauri:**";
   let htmlContent;
-  if (message.startsWith(prefix)) {
-    // console.log("Message starts with Nishauri");
-    htmlContent = marked.parse(message.substring(prefix.length).trim());
-    // console.log(htmlContent);
-  } else {
-    // console.log("Message does not start with Nishauri");
-    htmlContent = marked.parse(message);
-  }
+  htmlContent = marked.parse(result);
+  // if (message.startsWith(prefix)) {
+  //   // console.log("Message starts with Nishauri");
+  //   htmlContent = marked.parse(message.substring(prefix.length).trim());
+  //   // console.log(htmlContent);
+  // } else {
+  //   // console.log("Message does not start with Nishauri");
+  //   htmlContent = marked.parse(message);
+  // }
 
   return (
     <Fade duration={1000}>

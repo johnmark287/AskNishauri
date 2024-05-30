@@ -12,6 +12,7 @@ if (("webkitSpeechRecognition" || "SpeechRecognition") in window) {
 const useSpeechRecognition = () => {
   const [text, setText] = useState("");
   const [isListening, setIsListening] = useState(false);
+  const [usedVoice, setUsedVoice] = useState(false);
 
   useEffect(() => {
     if (!recognition) return;
@@ -29,7 +30,8 @@ const useSpeechRecognition = () => {
 
   const startListening = () => {
     if (recognition) {
-      console.log("es");
+      // console.log("es");
+      setUsedVoice(true);
       setText("");
       recognition.start();
       setIsListening(true);
@@ -47,6 +49,8 @@ const useSpeechRecognition = () => {
     text,
     setText,
     isListening,
+    usedVoice,
+    setUsedVoice,
     startListening,
     stopListening,
     hasRecognition: !!recognition,

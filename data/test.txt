@@ -1,0 +1,40 @@
+Week 1
+Focus: Design
+
+Design the user interface for the chatbot
+Design the user interface that the user will use to interact with the bot. Should be simple but complete for the major bot features
+
+Design the chatbot flow
+Design the chatbot flow. This shows how the user prompt will be converted to  get the response from the chatbot.
+Indicate how data will be retrieved from the data warehouse then joined to the bot to generate output
+
+Assemble all required software and set everything up
+Frotend framework
+Vector Database
+Embeddings model
+LLM to use
+
+
+Drawbacks
+Selecting the better LLM to use as the Language processor for the bot
+Deciding on the best embeddings technology to use for the Vector database  
+
+Achieved
+Initiation and implementation of the user interface design commenced.
+The chatbot flow was meticulously planned and conceptualized.
+All necessary technologies and software were procured, configured, and made operational.
+
+Needs more time:
+In the process of selecting the LLM and Embeddings models, the team narrowed down the choices to two standout options. The final decision will be made based on the next milestones but before the final day.
+Week 2
+Focus: Design
+Focus: Core Functionality & Data Handling
+Utilizing User Data for Responses:
+Set up the mechanisms for accessing and securely processing user health data from the database. 
+Define how responses will integrate with other chatbot features.
+Health Education:
+Connect the chatbot to your knowledge base. Begin with basic retrieval and output of general health information relevant to user queries.
+
+Drawbacks
+Achieved
+Needs more time

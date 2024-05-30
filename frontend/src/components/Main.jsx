@@ -37,7 +37,7 @@ function Main() {
 
   const [txt, setTxt] = useState("");
   const { start } = useSpeech({
-    text: useMemo(() => txt, [txt])
+    text: useMemo(() => txt, [txt]),
   });
 
   useEffect(() => {
@@ -140,8 +140,8 @@ function Main() {
           ]);
           setQuestions(data.followUps);
           const regex =
-            /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
-          setTxt(marked.parse(data.message.replace(regex, "")));
+            /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*|\*\*Better Response:\*\*/g;
+          setTxt(data.message.replace(regex, ""));
           // Text.value = data.message.replace(/[*]?/gm, ""),
           console.log(txt);
           // start();

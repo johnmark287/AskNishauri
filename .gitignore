@@ -31,3 +31,6 @@ Test.jsx
 
 env/
 venv/
+
+data/
+database/

@@ -23,14 +23,11 @@ dist-ssr
 *.sln
 *.sw?
 .venv
-# data
-# database
+# data/
+# database/
 .env
 t.py
 Test.jsx
 
 env/
 venv/
-
-data/
-database/

@@ -1,10 +1,11 @@
 // import chat from "./../assets/chat.png";
 import chat1 from "./../assets/chat1.png";
 import { Fade } from "react-awesome-reveal";
+import { Link } from "react-router-dom";
 
 function LandingMain({ open }) {
   return (
-    <div className={`${open ? 'block' : 'hidden'}`}>
+    <div className={`${open ? "block" : "hidden"}`}>
       <Fade duration={100}>
         <div className="h-[781.51px] bg-cover bg-center rounded-3xl m-3 md:m-5 my-10 shadow-md bg-[url('https://img.freepik.com/free-photo/medic-african-ethnicity-helping-sick-patient-clinic-hospital-ward-doctor-using-medical-equipment-technology-young-woman-healthcare-treatment-black-person-bed_482257-16526.jpg?t=st=1716722515~exp=1716726115~hmac=6788e0c25a0477a93bfcbc1ac9222b2e97c999e4c0860431797eb2c4fd734b25&w=740')]">
           <div className="flex flex-col md:flex-row items-center h-[80%]">
@@ -36,9 +37,13 @@ function LandingMain({ open }) {
             </div>
           </div>
           <div className="text-white flex justify-center items-center h-[20%]">
-            <button className="transition hover:transition hover:scale-105 active:transition md:font-semibold text-2xl sm:text-3xl md:text-4xl bg-[#B273F0] p-4 sm:p-6  md:p-8 rounded-full hover:bg-white hover:text-black active:bg-black active:text-white">
-              <Fade duration={350}>Get Started</Fade>
-            </button>
+            <Link to="/login">
+              <button className="transition hover:transition hover:scale-105 active:transition md:font-semibold text-2xl sm:text-3xl md:text-4xl bg-[#B273F0] p-4 sm:p-6  md:p-8 rounded-full hover:bg-white hover:text-black active:bg-black active:text-white">
+                <Fade duration={350}>
+                  Get Started
+                </Fade>
+              </button>
+            </Link>
           </div>
         </div>
       </Fade>
@@ -76,7 +81,11 @@ function LandingMain({ open }) {
             </div>
           </div>
           <div className="m-5 md:w-1/2 flex justify-center items-center relative">
-            <img src={chat1} alt="Chat" className="object-contain rounded-2xl" />
+            <img
+              src={chat1}
+              alt="Chat"
+              className="object-contain rounded-2xl"
+            />
           </div>
         </div>
       </Fade>

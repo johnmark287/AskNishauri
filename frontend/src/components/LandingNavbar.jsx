@@ -1,5 +1,6 @@
 // import { MdLocalHospital } from "react-icons/md";
 import { FiSidebar } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 function LandingNavbar({ setOpen }) {
   return (
@@ -30,9 +31,11 @@ function LandingNavbar({ setOpen }) {
         <button className="lg:block h-[40px] w-[40px] m-1 rounded-xl bg-contain bg-no-repeat  bg-[url('https://play-lh.googleusercontent.com/dOtBnrlwTJvTdmJeWy_Bu6iYJb0DjrckeIaYuYBDlYx_1kjiDAM7EGAzaZ37L18JgA0=w240-h480')]"></button>
         <span className="p-1">Nishauri</span>
       </div>
-      <button className="transition hover:transition hover:scale-110 active:transition bg-[#B273F0] rounded-3xl px-6 py-2 text-white text-2xl hover:bg-white hover:text-black active:bg-black active:text-white">
-        Login
-      </button>
+      <Link to="/login">
+        <button className="transition hover:transition hover:scale-110 active:transition bg-[#B273F0] rounded-3xl px-6 py-2 text-white text-2xl hover:bg-white hover:text-black active:bg-black active:text-white">
+          Login
+        </button>
+      </Link>
     </div>
   );
 }

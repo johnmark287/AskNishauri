@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import Navbar from "./Navbar";
 // import PropTypes from "prop-types";
 import ChatContainer from "./ChatContainer";
@@ -6,7 +6,8 @@ import Inputbar from "./Inputbar";
 import useSpeechRecognition from "../hooks/useSpeechRecognition";
 import FollowUps from "./FollowUps";
 import axios from "axios";
-
+import { marked } from "marked";
+import { useSpeech } from "react-text-to-speech";
 
 function Main() {
   const [logout, setLogout] = useState(false);
@@ -24,8 +25,26 @@ function Main() {
   const messagesEndRef = useRef(null);
   const closeSettingsRef = useRef();
   const closeLogoutRef = useRef();
-  const { text, setText, isListening, startListening, stopListening } =
-    useSpeechRecognition();
+  const {
+    text,
+    setText,
+    usedVoice,
+    setUsedVoice,
+    isListening,
+    startListening,
+    stopListening,
+  } = useSpeechRecognition();
+
+  const [txt, setTxt] = useState("");
+  const { start } = useSpeech({
+    text: useMemo(() => txt, [txt])
+  });
+
+  useEffect(() => {
+    if (txt) {
+      start();
+    }
+  }, [txt]);
 
   useEffect(() => {
     function handleCloseLogoutRef(event) {
@@ -120,8 +139,14 @@ function Main() {
             },
           ]);
           setQuestions(data.followUps);
-          let utterance = new SpeechSynthesisUtterance("Hello world");
-          speechSynthesis.speak(utterance);
+          const regex =
+            /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
+          setTxt(marked.parse(data.message.replace(regex, "")));
+          // Text.value = data.message.replace(/[*]?/gm, ""),
+          console.log(txt);
+          // start();
+          // let utterance = new SpeechSynthesisUtterance("Hello world");
+          // speechSynthesis.speak(utterance);
         } else {
           console.error("Error:", data.message);
         }
@@ -131,6 +156,7 @@ function Main() {
       })
       .finally(() => {
         setIsLoading(false);
+        setUsedVoice(false);
       });
   }
 
@@ -166,7 +192,6 @@ function Main() {
           const { latitude, longitude } = position.coords;
           setCoorditates({ latitude, longitude });
           console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
-
         },
         (error) => {
           console.error("Error getting geolocation:", error);
@@ -200,7 +225,7 @@ function Main() {
   useEffect(() => {
     // Geocode only if both longitude and latitude are entered
     // if (coordinates.longitude !== 0 && coordinates.latitude !== 0) {
-      getGeocode();
+    getGeocode();
     // }
   });
 

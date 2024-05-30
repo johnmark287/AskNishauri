@@ -1,11 +1,11 @@
 // import React from 'react'
 import PropTypes from "prop-types";
 import { marked } from "marked";
-import "animate.css";
 import { Fade } from "react-awesome-reveal";
 
 function ChatMessage({ sender, timestamp, message }) {
-  const regex = /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*/g;
+  const regex =
+    /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
   const result = message.replace(regex, "").trim();
   // console.log(result);
   // const prefix = "**Nishauri:**";

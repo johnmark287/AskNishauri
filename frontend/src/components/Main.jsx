@@ -37,7 +37,7 @@ function Main() {
 
   const [txt, setTxt] = useState("");
   const { start } = useSpeech({
-    text: useMemo(() => txt, [txt])
+    text: useMemo(() => txt, [txt]),
   });
 
   useEffect(() => {
@@ -112,6 +112,7 @@ function Main() {
         timestamp: getCurrentTimestamp(),
       },
     ]);
+    const startTime = Date.now();
     setIsLoading(true);
 
     await fetch("http://127.0.0.1:5000/chatbot", {
@@ -139,11 +140,16 @@ function Main() {
             },
           ]);
           setQuestions(data.followUps);
+          const endTime = Date.now();
+          const totalTime = endTime - startTime; // Calculate the total time taken
+
+          console.log(`Total time taken for the response: ${totalTime}ms`);
+
           const regex =
             /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
           setTxt(marked.parse(data.message.replace(regex, "")));
           // Text.value = data.message.replace(/[*]?/gm, ""),
-          console.log(txt);
+          // console.log(txt);
           // start();
           // let utterance = new SpeechSynthesisUtterance("Hello world");
           // speechSynthesis.speak(utterance);

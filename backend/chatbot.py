@@ -33,8 +33,9 @@ PROMPT_TEMPLATE = """
 **Context:**
 * You are a personal health assistant called Dr.Nishauri provided with the patient's real-time location, {location}, helping patients with medical queries.
 
+* **Patient Name:** {name}
 * **Patient Real-Time Location and time:** {location} at {time} 
-* **Patient Details:** {context}
+* **Patient Records:** {context}
 * **Conversation History sorted from the latest message to the oldest:** {history}
 * **Hospitals Details:** {hospitals}
 
@@ -228,7 +229,8 @@ async def chatbot():
     prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
 
     prompt = prompt_template.format(
-        context=details,
+        context=details["records"],
+        name=details["name"],
         question=query_text,
         hospitals=context_text,
         location="Juja,Kiambu, Kenya",
@@ -239,11 +241,11 @@ async def chatbot():
     model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
 
     try:
-        response = await invoke_model(model_one, prompt)
-        response = response.content
+        response_1 = await invoke_model(model_one, prompt)
+        response_2 = await invoke_model(model_one, prompt)
 
         prompt_3 = prompt_template_3.format(
-            question=query_text, response_1=response, response_2=response
+            question=query_text, response_1=response_1.content, response_2=response_2.content
         )
         response_three = await invoke_model(model_one, prompt_3)
 

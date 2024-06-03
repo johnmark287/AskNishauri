@@ -43,11 +43,15 @@ function ChatMessage({ sender, timestamp, message }) {
               }  prose prose-lg max-w-none`}
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
-            <div className="text-slate-200 flex">
-              <button className="mx-1 active:text-black">
+            <div
+              className={`${
+                sender === "Nishauri" ? "" : "hidden"
+              } text-slate-200 flex`}
+            >
+              <button className="mx-1 active:text-black hover:text-white">
                 <GiSpeaker />
               </button>
-              <button className="mx-1 active:text-black">
+              <button className="mx-1 active:text-black hover:text-white">
                 <FaRegCopy />
               </button>
             </div>

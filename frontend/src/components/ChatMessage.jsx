@@ -2,6 +2,8 @@
 import PropTypes from "prop-types";
 import { marked } from "marked";
 import { Fade } from "react-awesome-reveal";
+import { FaRegCopy } from "react-icons/fa";
+import { GiSpeaker } from "react-icons/gi";
 
 function ChatMessage({ sender, timestamp, message }) {
   const regex =
@@ -41,6 +43,14 @@ function ChatMessage({ sender, timestamp, message }) {
               }  prose prose-lg max-w-none`}
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
+            <div className="text-slate-200 flex">
+              <button className="mx-1 active:text-black">
+                <GiSpeaker />
+              </button>
+              <button className="mx-1 active:text-black">
+                <FaRegCopy />
+              </button>
+            </div>
           </div>
           <div className="">
             <div

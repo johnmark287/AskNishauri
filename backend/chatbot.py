@@ -21,7 +21,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
-executor = ThreadPoolExecutor(max_workers=10)
+executor = ThreadPoolExecutor(max_workers=5)
 # executor = Executor(app)
 app.secret_key = "es"
 
@@ -127,6 +127,12 @@ PROMPT_TEMPLATE_3 = """
 
 """
 
+
+prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
+prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
+model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
+
 embedding_function = GoogleGenerativeAIEmbeddings(
     model="models/embedding-001", google_api_key=api_key
 )
@@ -201,6 +207,7 @@ def get_results(query):
     db = Chroma(persist_directory=CHROMA_DB_PATH, embedding_function=embedding_function)
 
     results = db.similarity_search_with_relevance_scores(query, k=5)
+    # print(f"Results: {results}")
     return results
 
 
@@ -224,9 +231,6 @@ async def chatbot():
         return jsonify({"message": "No results found", "status": "error"})
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
-    prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-    prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
-    prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
 
     prompt = prompt_template.format(
         context=details["records"],
@@ -237,8 +241,6 @@ async def chatbot():
         time=time,
         history=history,
     )
-
-    model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
 
     try:
         response_1 = await invoke_model(model_one, prompt)

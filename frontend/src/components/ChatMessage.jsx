@@ -5,7 +5,7 @@ import { Fade } from "react-awesome-reveal";
 
 function ChatMessage({ sender, timestamp, message }) {
   const regex =
-    /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
+    /\*\*Nishauri:\*\*|\*\*Response:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
   const result = message.replace(regex, "").trim();
   // console.log(result);
   // const prefix = "**Nishauri:**";

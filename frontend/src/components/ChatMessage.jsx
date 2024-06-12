@@ -2,10 +2,12 @@
 import PropTypes from "prop-types";
 import { marked } from "marked";
 import { Fade } from "react-awesome-reveal";
+import { FaRegCopy } from "react-icons/fa";
+import { GiSpeaker } from "react-icons/gi";
 
 function ChatMessage({ sender, timestamp, message }) {
   const regex =
-    /\*\*Nishauri:\*\*|\*\*Response:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*/g;
+    /\*\*Nishauri:\*\*|\*\*Response 1:\*\*|\*\*Response 2:\*\*|\*\*Assistant:\*\*|\*\*Better Response:\*\*/g;
   const result = message.replace(regex, "").trim();
   // console.log(result);
   // const prefix = "**Nishauri:**";
@@ -41,6 +43,18 @@ function ChatMessage({ sender, timestamp, message }) {
               }  prose prose-lg max-w-none`}
               dangerouslySetInnerHTML={{ __html: htmlContent }}
             />
+            <div
+              className={`${
+                sender === "Nishauri" ? "" : "hidden"
+              } text-slate-200 flex`}
+            >
+              <button className="mx-1 active:text-black hover:text-white">
+                <GiSpeaker />
+              </button>
+              <button className="mx-1 active:text-black hover:text-white">
+                <FaRegCopy />
+              </button>
+            </div>
           </div>
           <div className="">
             <div

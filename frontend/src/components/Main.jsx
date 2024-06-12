@@ -42,7 +42,7 @@ function Main() {
 
   useEffect(() => {
     if (txt) {
-      start();
+      // start();
     }
   }, [txt]);
 
@@ -75,13 +75,16 @@ function Main() {
 
   useEffect(() => {
     const history = JSON.parse(localStorage.getItem("history"));
+    const follow = JSON.parse(localStorage.getItem("followups"));
     if (history.length > 0) {
       setMessages(history);
+      setQuestions(follow);
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("history", JSON.stringify(messages));
+    localStorage.setItem("followups", JSON.stringify(questions));
     messagesEndRef.current?.scrollIntoView();
   }, [messages]);
 
@@ -208,32 +211,32 @@ function Main() {
     }
   }, []);
 
-  const getGeocode = async () => {
-    const apiKey = "f796cb79aba840da993f38af94f8cb5f"; // Replace with your actual API key
-    const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${coordinates.latitude}+${coordinates.longitude}&key=${apiKey}`;
+  // const getGeocode = async () => {
+  //   const apiKey = "f796cb79aba840da993f38af94f8cb5f"; // Replace with your actual API key
+  //   const geocodeUrl = `https://api.opencagedata.com/geocode/v1/json?q=${coordinates.latitude}+${coordinates.longitude}&key=${apiKey}`;
 
-    try {
-      const response = await axios.get(geocodeUrl);
-      const results = response.data.results;
-      if (results.length > 0) {
-        // console.log(results[0]);
-        setLocation(results[0].formatted);
-        // console.log(location);
-      } else {
-        setLocation("No address found");
-      }
-    } catch (error) {
-      console.error("Error fetching geocode:", error);
-      setLocation("Error fetching address");
-    }
-  };
+  //   try {
+  //     const response = await axios.get(geocodeUrl);
+  //     const results = response.data.results;
+  //     if (results.length > 0) {
+  //       // console.log(results[0]);
+  //       setLocation(results[0].formatted);
+  //       // console.log(location);
+  //     } else {
+  //       setLocation("No address found");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching geocode:", error);
+  //     setLocation("Error fetching address");
+  //   }
+  // };
 
-  useEffect(() => {
-    // Geocode only if both longitude and latitude are entered
-    // if (coordinates.longitude !== 0 && coordinates.latitude !== 0) {
-    getGeocode();
-    // }
-  });
+  // useEffect(() => {
+  //   // Geocode only if both longitude and latitude are entered
+  //   // if (coordinates.longitude !== 0 && coordinates.latitude !== 0) {
+  //   getGeocode();
+  //   // }
+  // });
 
   return (
     // main

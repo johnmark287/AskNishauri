@@ -32,7 +32,7 @@ function FollowUps({ questions, onQuestionClick }) {
 }
 
 FollowUps.propTypes = {
-  questions: PropTypes.array.isRequired,
+  questions: PropTypes.array,
   onQuestionClick: PropTypes.func.isRequired,
 };
 

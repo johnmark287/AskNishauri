@@ -1,0 +1,477 @@
+{
+  "patients": [
+    {
+      "id": 1,
+      "patient_id": "PT-001",
+      "name": "Simon Mwaura",
+      "age": 35,
+      "gender": "Male",
+      "contact": {
+        "phone": "0795171820",
+        "email": "johndoe@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "ABC123456"
+      },
+      "records": [
+        {
+          "date": "2024-02-20",
+          "type": "Appointment",
+          "doctor": "Dr. Garcia",
+          "specialty": "Psychiatry",
+          "notes": "Patient presented with symptoms of anxiety and discussed frequent panic attacks.",
+          "location": "Main Street Clinic",
+          "diagnosis": "Panic Disorder (ICD-10: F41.0)",
+          "medication": "Sertraline (50mg), Alprazolam (0.25mg as needed)",
+          "follow_up": "Follow-up in 2 weeks, consider referral to Cognitive Behavioral Therapy (CBT).",
+          "additional_tests": [
+            {
+              "test_type": "Beck Anxiety Inventory",
+              "result": 35,
+              "interpretation": "Severe anxiety"
+            },
+            {
+              "test_type": "Panic Disorder Severity Scale (PDSS)",
+              "result": 22,
+              "interpretation": "Moderate to severe panic disorder"
+            }
+          ]
+        },
+        {
+          "date": "2023-04-15",
+          "type": "Lab Test",
+          "doctor": "Dr. Johnson",
+          "specialty": "Pathology",
+          "results": {
+            "blood_glucose": 95,
+            "cholesterol": 180
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "patient_id": "2",
+      "name": "Kandie Jane",
+      "age": 45,
+      "gender": "Female",
+      "contact": {
+        "phone": "0799812497",
+        "email": "janesmith@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "XYZ987654"
+      },
+      "records": [
+        {
+          "date": "2024-01-05",
+          "type": "Lab Test",
+          "doctor": "Dr. Lee",
+          "specialty": "Pulmonology",
+          "location": "City Hospital",
+          "results": {
+            "spirometry": {
+              "fev1": 3.2,
+              "fvc": 4.0,
+              "fev1_fvc_ratio": 80,
+              "result_interpretation": "Normal"
+            },
+            "blood_gas_analysis": {
+              "ph": 7.4,
+              "paco2": 40,
+              "pao2": 90,
+              "result_interpretation": "Normal"
+            },
+            "chest_xray": {
+              "report": "Mild hyperinflation with flattened diaphragms, no acute infiltrates or consolidation. No pleural effusion.",
+              "result_interpretation": "Suggestive of mild chronic obstructive pulmonary disease (COPD)."
+            }
+          }
+        },
+        {
+          "date": "2023-05-20",
+          "type": "Lab Test",
+          "doctor": "Dr. Martinez",
+          "specialty": "Endocrinology",
+          "results": {
+            "thyroid_panel": {
+              "tsh": 2.5,
+              "t3": 120,
+              "t4": 9.8
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "patient_id": "3",
+      "name": "Wanjiku Alice",
+      "age": 55,
+      "gender": "Female",
+      "contact": {
+        "phone": "0751234567",
+        "email": "alicejohnson@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "GHI987654"
+      },
+      "records": [
+        {
+          "date": "2023-12-12",
+          "type": "Appointment",
+          "doctor": "Dr. Patel",
+          "specialty": "Primary Care",
+          "location": "Neighborhood Health Center",
+          "notes": "Patient presented for annual checkup and reported persistent fatigue and shortness of breath.",
+          "diagnosis": "Chronic Obstructive Pulmonary Disease (COPD)",
+          "medication": "Inhaled corticosteroid/long-acting beta agonist (ICS/LABA) combination inhaler",
+          "follow_up": "Routine follow-up in 3 months to assess response to treatment and lung function.",
+          "additional_tests": [
+            {
+              "test_type": "Complete Blood Count (CBC)",
+              "results": {
+                "hemoglobin": 12.5,
+                "hematocrit": 38,
+                "mean_corpuscular_volume (MCV)": 92,
+                "result_interpretation": "Normal"
+              }
+            },
+            {
+              "test_type": "Pulmonary Function Tests (PFTs)",
+              "results": {
+                "forced_expiratory_volume_in_1_second (FEV1)": 2.8,
+                "forced_vital_capacity (FVC)": 3.5,
+                "fev1_fvc_ratio": 80,
+                "result_interpretation": "Moderate obstruction consistent with COPD"
+              }
+            }
+          ]
+        },
+        {
+          "date": "2023-06-25",
+          "type": "Lab Test",
+          "doctor": "Dr. Wang",
+          "specialty": "Hematology",
+          "results": {
+            "hemoglobin": 12.5,
+            "platelet_count": 150000
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "4",
+      "name": "Michael Kamau",
+      "age": 40,
+      "gender": "Male",
+      "contact": {
+        "phone": "0745556666",
+        "email": "michaelbrown@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "DEF123456"
+      },
+      "records": [
+        {
+          "date": "2023-11-07",
+          "type": "Appointment",
+          "doctor": "Dr. Smith",
+          "specialty": "Ophthalmology",
+          "location": "Vision Clinic",
+          "notes": "Patient presented for annual eye exam, no changes detected in vision."
+        },
+        {
+          "date": "2023-10-15",
+          "type": "Lab Test",
+          "doctor": "Dr. Johnson",
+          "specialty": "Endocrinology",
+          "location": "Metabolic Center",
+          "results": {
+            "thyroid_stimulating_hormone (TSH)": 2.1,
+            "free_thyroxine (FT4)": 1.2,
+            "result_interpretation": "Normal thyroid function"
+          }
+        },
+        {
+          "date": "2023-07-30",
+          "type": "Lab Test",
+          "doctor": "Dr. Khan",
+          "specialty": "Allergy & Immunology",
+          "results": {
+            "allergen_specific_ige": {
+              "peanuts": 8.5,
+              "pollen": 15.2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "5",
+      "name": "Achieng Emily",
+      "age": 28,
+      "gender": "Female",
+      "contact": {
+        "phone": "0788879999",
+        "email": "emilywilson@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "MNO123456"
+      },
+      "records": [
+        {
+          "date": "2023-11-07",
+          "type": "Appointment",
+          "doctor": "Dr. Smith",
+          "specialty": "Ophthalmology",
+          "location": "Vision Clinic",
+          "notes": "Patient presented for annual eye exam, no changes detected in vision."
+        },
+        {
+          "date": "2023-10-15",
+          "type": "Lab Test",
+          "doctor": "Dr. Johnson",
+          "specialty": "Endocrinology",
+          "location": "Metabolic Center",
+          "results": {
+            "thyroid_stimulating_hormone (TSH)": 2.1,
+            "free_thyroxine (FT4)": 1.2,
+            "result_interpretation": "Normal thyroid function"
+          }
+        },
+        {
+          "date": "2023-08-05",
+          "type": "Lab Test",
+          "doctor": "Dr. Nguyen",
+          "specialty": "Oncology",
+          "results": {
+            "tumor_markers": {
+              "cea": 3.2,
+              "ca_125": 22.6
+            }
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "6",
+      "name": "Maina David",
+      "age": 50,
+      "gender": "Male",
+      "contact": {
+        "phone": "0752233444",
+        "email": "davidkim@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "JKL987654"
+      },
+      "records": [
+        {
+          "date": "2023-09-10",
+          "type": "Appointment",
+          "doctor": "Dr. Martinez",
+          "specialty": "Gastroenterology",
+          "location": "Digestive Health Center",
+          "notes": "Patient reported abdominal pain and changes in bowel habits. Suspected irritable bowel syndrome (IBS).",
+          "diagnosis": "Irritable Bowel Syndrome (IBS)",
+          "medication": "Dietary modifications, probiotics",
+          "follow_up": "Follow-up in 1 month, consider further evaluation if symptoms persist."
+        },
+        {
+          "date": "2023-09-02",
+          "type": "Lab Test",
+          "doctor": "Dr. Kim",
+          "specialty": "Radiology",
+          "results": {
+            "x_ray": {
+              "image_url": "https://example.com/xrayimage123.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "7",
+      "name": "Khendi Sarah",
+      "age": 60,
+      "gender": "Female",
+      "contact": {
+        "phone": "0733344555",
+        "email": "sarahjones@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "STU123456"
+      },
+      "records": [
+        {
+          "date": "2023-08-25",
+          "type": "Lab Test",
+          "doctor": "Dr. Williams",
+          "specialty": "Rheumatology",
+          "location": "Arthritis Clinic",
+          "results": {
+            "rheumatoid_factor": 15,
+            "anti_ccp_antibody": 20,
+            "result_interpretation": "Elevated rheumatoid factor and anti-CCP antibody levels, suggestive of rheumatoid arthritis."
+          }
+        },
+        {
+          "date": "2023-10-01",
+          "type": "Lab Test",
+          "doctor": "Dr. Brown",
+          "specialty": "Neurology",
+          "results": {
+            "mri_scan": {
+              "image_url": "https://example.com/mriscanimage123.jpg"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "8",
+      "name": "Wafula Robert",
+      "age": 70,
+      "gender": "Male",
+      "contact": {
+        "phone": "0766677888",
+        "email": "roberttaylor@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "YZA123456"
+      },
+      "records": [
+        {
+          "date": "2023-07-12",
+          "type": "Appointment",
+          "doctor": "Dr. Chang",
+          "specialty": "Neurology",
+          "location": "Brain Institute",
+          "notes": "Patient presented with persistent headaches and occasional dizziness. No focal neurological deficits observed.",
+          "diagnosis": "Migraine without Aura (ICD-10: G43.901)",
+          "medication": "Sumatriptan (as needed), Propranolol (prophylaxis)",
+          "follow_up": "Follow-up in 3 months, consider MRI if symptoms worsen."
+        },
+        {
+          "date": "2023-11-20",
+          "type": "Lab Test",
+          "doctor": "Dr. Wilson",
+          "specialty": "Gastroenterology",
+          "results": {
+            "colonoscopy": {
+              "findings": "No abnormalities detected"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "patient_id": "9",
+      "name": "Wahu Lisa",
+      "age": 25,
+      "gender": "Female",
+      "contact": {
+        "phone": "0799888777",
+        "email": "lisaadams@example.com"
+      },
+      "insurance": {
+        "provider": "NHIF",
+        "policy_number": "EFG123456"
+      },
+      "records": [
+        {
+          "date": "2024-01-15",
+          "type": "Appointment",
+          "doctor": "Dr. Garcia",
+          "specialty": "Obstetrics",
+          "notes": "Prenatal checkup"
+        },
+        {
+          "date": "2023-12-30",
+          "type": "Lab Test",
+          "doctor": "Dr. Patel",
+          "specialty": "Rheumatology",
+          "results": {
+            "rheumatoid_factor": 18.5
+          }
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "patient_id": "PT-0010",
+      "name": "Muhando John",
+      "age": 32,
+      "gender": "Male",
+      "contact": {
+        "phone": "0712345678",
+        "email": "kevinthompson@example.com"
+      },
+      "records": [
+        {
+          "date": "April 27, 2024",
+          "type": "Appointment",
+          "doctor": "Dr. Magabi",
+          "specialty": "Psychiatry",
+          "notes": "Patient presented with symptoms of anxiety and discussed frequent panic attacks.",
+          "location": "JKUAT Hospital",
+          "diagnosis": "Panic Disorder (ICD-10: F41.0)",
+          "medication": "Sertraline (50mg), Alprazolam (0.25mg as needed)",
+          "follow_up": "Follow-up in 2 weeks, consider referral to Cognitive Behavioral Therapy (CBT).",
+          "additional_tests": [
+            {
+              "test_type": "Beck Anxiety Inventory",
+              "result": 35,
+              "interpretation": "Severe anxiety"
+            },
+            {
+              "test_type": "Panic Disorder Severity Scale (PDSS)",
+              "result": 22,
+              "interpretation": "Moderate to severe panic disorder"
+            }
+          ]
+        },
+        {
+          "date": "April 15, 2024",
+          "type": "Appointment",
+          "doctor": "Dr. Towett",
+          "specialty": "Primary Care",
+          "location": "Thika Level 5 Hospital",
+          "notes": "Patient presented for annual checkup and reported persistent fatigue and shortness of breath.",
+          "diagnosis": "Chronic Obstructive Pulmonary Disease (COPD)",
+          "medication": "Inhaled corticosteroid/long-acting beta agonist (ICS/LABA) combination inhaler",
+          "follow_up": "Routine follow-up in 3 months to assess response to treatment and lung function.",
+          "additional_tests": [
+            {
+              "test_type": "Complete Blood Count (CBC)",
+              "results": {
+                "hemoglobin": 12.5,
+                "hematocrit": 38,
+                "mean_corpuscular_volume (MCV)": 92,
+                "result_interpretation": "Normal"
+              }
+            },
+            {
+              "test_type": "Pulmonary Function Tests (PFTs)",
+              "results": {
+                "forced_expiratory_volume_in_1_second (FEV1)": 2.8,
+                "forced_vital_capacity (FVC)": 3.5,
+                "fev1_fvc_ratio": 80,
+                "result_interpretation": "Moderate obstruction consistent with COPD"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

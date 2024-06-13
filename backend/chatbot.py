@@ -13,9 +13,16 @@ from langchain_community.vectorstores.chroma import Chroma
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_google_genai.embeddings import GoogleGenerativeAIEmbeddings
 
+from functools import lru_cache
+# from flask_executor import Executor
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+executor = ThreadPoolExecutor(max_workers=5)
+# executor = Executor(app)
 app.secret_key = "es"
 
 load_dotenv()
@@ -26,8 +33,9 @@ PROMPT_TEMPLATE = """
 **Context:**
 * You are a personal health assistant called Dr.Nishauri provided with the patient's real-time location, {location}, helping patients with medical queries.
 
+* **Patient Name:** {name}
 * **Patient Real-Time Location and time:** {location} at {time} 
-* **Patient Details:** {context}
+* **Patient Records:** {context}
 * **Conversation History sorted from the latest message to the oldest:** {history}
 * **Hospitals Details:** {hospitals}
 
@@ -120,6 +128,17 @@ PROMPT_TEMPLATE_3 = """
 """
 
 
+prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
+prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
+model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
+
+embedding_function = GoogleGenerativeAIEmbeddings(
+    model="models/embedding-001", google_api_key=api_key
+)
+db = Chroma(persist_directory=CHROMA_DB_PATH, embedding_function=embedding_function)
+
+
 @app.route("/login", methods=["POST"])
 def login():
     print("Login invoked")
@@ -132,19 +151,31 @@ def login():
     with open("../data/testData.json", "r") as file:
         database = json.load(file)
 
-    
     try:
         for patient in database["patients"]:
-            if patient["patient_id"] == password and patient["contact"]["phone"] == phone:
+            if (
+                patient["patient_id"] == password
+                and patient["contact"]["phone"] == phone
+            ):
                 with open("../data/chats-hist.json", "r") as file:
                     users_hist = json.load(file)
                 user_hist = users_hist.get(password, [])
-                
+
                 # print(f"User history: {user_hist}")
 
                 session["user"] = patient["patient_id"]
-                return jsonify({"id":patient["patient_id"],"name": patient["name"], "details":patient, "history": user_hist ,"status": "success"})
-        return jsonify({"message": "Login failed, Patient does not exist", "status": "error"})
+                return jsonify(
+                    {
+                        "id": patient["patient_id"],
+                        "name": patient["name"],
+                        "details": patient,
+                        "history": user_hist,
+                        "status": "success",
+                    }
+                )
+        return jsonify(
+            {"message": "Login failed, Patient does not exist", "status": "error"}
+        )
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"message": e, "status": "error"})
@@ -168,78 +199,76 @@ def logout():
     return jsonify({"message": "User logged out", "status": "success"})
 
 
-@app.route("/chatbot", methods=["POST"])
-def chatbot():
-    print("Chatbot invoked")
-    data = request.get_json()
-    # print(f"Data: {data}")
-    query_text = data["message"]
-    details = data["details"]
-    history = data["history"]
-    time = data["time"]
-    query = f"Juja,Kiambu,Kenya"
-
+@lru_cache(maxsize=128)
+def get_results(query):
     embedding_function = GoogleGenerativeAIEmbeddings(
         model="models/embedding-001", google_api_key=api_key
     )
     db = Chroma(persist_directory=CHROMA_DB_PATH, embedding_function=embedding_function)
 
     results = db.similarity_search_with_relevance_scores(query, k=5)
-    print("\n")
     # print(f"Results: {results}")
+    return results
+
+
+async def invoke_model(model, prompt):
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(executor, model.invoke, prompt)
+
+
+@app.route("/chatbot", methods=["POST"])
+async def chatbot():
+    data = request.get_json()
+    query_text = data["message"]
+    details = data["details"]
+    history = data["history"]
+    time = data["time"]
+    query = f"Juja"
+
+    results = get_results(query)
 
     if len(results) == 0 or results[0][1] < 0.5:
-        print("No results found")
+        return jsonify({"message": "No results found", "status": "error"})
 
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
-    prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
-    prompt_template_2 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_2)
-    prompt_template_3 = ChatPromptTemplate.from_template(PROMPT_TEMPLATE_3)
-    prompt = prompt_template.format(context=details, question=query_text, hospitals=context_text, location="Juja,Kiambu, Kenya", time=time, history=history)
 
-    model_one = ChatGoogleGenerativeAI(model="gemini-pro", google_api_key=api_key)
+    prompt = prompt_template.format(
+        context=details["records"],
+        name=details["name"],
+        question=query_text,
+        hospitals=context_text,
+        location="Juja,Kiambu, Kenya",
+        time=time,
+        history=history,
+    )
 
     try:
-        response = model_one.invoke(prompt).content
-        print(type(response))
-        response_one = dict(model_one.invoke(prompt))
+        response_1 = await invoke_model(model_one, prompt)
+        response_2 = await invoke_model(model_one, prompt)
 
-        prompt_3 = prompt_template_3.format(question=query_text, response_1=response, response_2=response_one["content"])
-        response_three = model_one.invoke(prompt_3).content
+        prompt_3 = prompt_template_3.format(
+            question=query_text, response_1=response_1.content, response_2=response_2.content
+        )
+        response_three = await invoke_model(model_one, prompt_3)
 
-        prompt_2 = prompt_template_2.format( patient=details["name"], question=query_text, response=response_three, history=history)
-        response_two = model_one.invoke(prompt_2).content
+        prompt_2 = prompt_template_2.format(
+            patient=details["name"],
+            question=query_text,
+            response=response_three.content,
+            history=history,
+        )
+        response_two = await invoke_model(model_one, prompt_2)
 
-
-        return jsonify({"message": response_three, "followUps": response_two.split("\n") ,"status": "success"})
+        return jsonify(
+            {
+                "message": response_three.content,
+                "followUps": response_two.content.split("\n"),
+                "status": "success",
+            }
+        )
     except Exception as e:
-        print(f"Error: {e}")
-        return jsonify({"message": e, "status": "error"})
-    finally:
-        print("\n")
-        print(f"Question: {query_text}" )
-        print("\n")
-        print(response)
-        print("\n")
-        print(response_one)
-        print("\n")
-        print(response_three)
-        print("\n")
-        print(response_two.split("\n"))
-
-
-def main():
-    """
-    Main function for the chatbot
-    """
-    # parser = argparse.ArgumentParser()
-    # parser.add_argument("query_text", type=str, help="Query text")
-    # args = parser.parse_args()
-    # query_text = args.query_text
-
-    # load the database created earlier
-    app.run(port=5000, debug=True)
+        return jsonify({"message": str(e), "status": "error"})
 
 
 if __name__ == "__main__":
-    main()
+    app.run(port=5000, debug=True)

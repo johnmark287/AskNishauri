@@ -33,6 +33,7 @@ function Navbar({
           localStorage.removeItem("id");
           localStorage.removeItem("details");
           localStorage.removeItem("history");
+          localStorage.removeItem("followups");
           navigate("/login", { replace: true });
         } else {
           console.error(data.message);
